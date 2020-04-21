@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Assets/AstroMenace-Mines/Source3D/Mines/mine1.fbx" type="PackedScene" id=1]
+[ext_resource path="res://proximity.gd" type="Script" id=2]
+[ext_resource path="res://Assets/sfx/Explosion 1.wav" type="AudioStream" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.026261
+height = 0.0132317
+
+[sub_resource type="SphereShape" id=2]
+radius = 0.36
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0.123123, 0.294294, 0.585586, 0.858859, 1 )
+colors = PoolColorArray( 0.901961, 0.976471, 0.0156863, 1, 0.968627, 0.0431373, 0.0235294, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0.499899 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+width = 100
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+lifetime_randomness = 0.19
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1.0
+linear_accel = -1.95
+scale = 5.0
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
+
+[sub_resource type="SpatialMaterial" id=9]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id=8]
+material = SubResource( 9 )
+radius = 0.03
+height = 0.06
+
+[node name="ProximityMine" type="RigidBody"]
+collision_layer = 2
+collision_mask = 2
+contacts_reported = 1
+contact_monitor = true
+angular_damp = 0.396
+script = ExtResource( 2 )
+
+[node name="mine1" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, -0.0059369, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="PromityDetection" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="PromityDetection"]
+shape = SubResource( 2 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+
+[node name="Particles" type="Particles" parent="."]
+emitting = false
+amount = 15
+lifetime = 0.31
+one_shot = true
+explosiveness = 0.1
+randomness = 0.4
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 8 )
+[connection signal="body_entered" from="." to="." method="_on_ProximityMine_body_entered"]
