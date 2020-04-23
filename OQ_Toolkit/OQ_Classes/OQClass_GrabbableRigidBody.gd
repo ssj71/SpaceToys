@@ -30,6 +30,7 @@ func grab_init(node, grab_type: int) -> void:
 	sleeping = false;
 	_orig_can_sleep = can_sleep;
 	can_sleep = false;
+	$Crosshair.enabled = true
 
 func _release():
 	is_grabbed = false
@@ -106,20 +107,22 @@ func _on_OQ_LeftController_button_pressed(button):
 		
 func _on_ship2_body_entered(body):
 	var p = body.get_parent()
-	if body.get_name() == "walls":
+	var name = body.get_name()
+	if name == "walls":
 		self.linear_velocity = Vector3(0,0,0);
 		self.angular_velocity = Vector3(0,0,0)
-	elif body.get_name().to_lower().ends_with("mine"):
+	elif name.match("*ine*"):
 		boom()
-		body.boom()
+		body.queue_free()
 		
 var dead = false
 func boom():
 	$fighterjet2/boom.play()
+	$fighterjet2.visible = false
 	$Particles.restart()
 	dead = true
 	grab_release()
 	
 func _process(delta):
-	if dead and not $Particles.emitting:
+	if dead and not $Particles.emitting and not $fighterjet2/boom.playing:
 		queue_free()

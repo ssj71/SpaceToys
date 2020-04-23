@@ -32,21 +32,23 @@ spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 1.0
 linear_accel = -1.95
-scale = 5.0
+scale = 3.0
+scale_random = 0.01
 scale_curve = SubResource( 6 )
 color_ramp = SubResource( 4 )
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=8]
 vertex_color_use_as_albedo = true
 
-[sub_resource type="SphereMesh" id=8]
-material = SubResource( 9 )
-radius = 0.03
-height = 0.06
+[sub_resource type="SphereMesh" id=9]
+material = SubResource( 8 )
+radius = 0.01
+height = 0.02
 
 [node name="ProximityMine" type="RigidBody"]
 collision_layer = 2
 collision_mask = 2
+mass = 10.72
 contacts_reported = 1
 contact_monitor = true
 angular_damp = 0.396
@@ -69,11 +71,11 @@ stream = ExtResource( 3 )
 
 [node name="Particles" type="Particles" parent="."]
 emitting = false
-amount = 15
+amount = 5
 lifetime = 0.31
 one_shot = true
 explosiveness = 0.1
 randomness = 0.4
 process_material = SubResource( 7 )
-draw_pass_1 = SubResource( 8 )
+draw_pass_1 = SubResource( 9 )
 [connection signal="body_entered" from="." to="." method="_on_ProximityMine_body_entered"]
