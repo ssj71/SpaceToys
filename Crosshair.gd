@@ -22,6 +22,7 @@ func _ready():
 func shoot():
 	if not enabled:
 		return
+	$"..".room.tut(2)
 	$laser.radius = .007
 	$laser.material.albedo_color.a = 255
 	#$"../fighterjet2/pew".play()
@@ -29,9 +30,9 @@ func shoot():
 	$"../fighterjet2/pew".play()
 	for body in b:
 		#$"../../../InfoLabel".set_label_text("boom")
-		#TODO: only hit the closest mine, add damage
+		#TODO: only hit the closest mine
 		if body.get_name().match("*ine*"):
-			body.boom()
+			body.hit(2)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

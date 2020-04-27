@@ -5,7 +5,7 @@ extends CollisionShape
 # var a = 2
 # var b = "text"
 const length = 1.5
-const angle = 5*PI/180.0
+const angle = 4*PI/180.0
 
 
 # Called when the node enters the scene tree for the first time.

@@ -12,7 +12,7 @@ albedo_color = Color( 0.0117647, 0.447059, 0.243137, 0.627451 )
 
 [node name="Crosshair" type="Area"]
 monitorable = false
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2
 script = ExtResource( 2 )
 

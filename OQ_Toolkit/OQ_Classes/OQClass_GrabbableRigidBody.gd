@@ -22,6 +22,8 @@ var _release_next_physics_step := false;
 var _cached_linear_velocity := Vector3(0,0,0); # required for kinematic grab
 var _cached_angular_velocity := Vector3(0,0,0);
 
+onready var room = get_parent()
+
 func grab_init(node, grab_type: int) -> void:
 	target_node = node
 	_grab_type = grab_type
@@ -30,7 +32,9 @@ func grab_init(node, grab_type: int) -> void:
 	sleeping = false;
 	_orig_can_sleep = can_sleep;
 	can_sleep = false;
+	room.tut(1)
 	$Crosshair.enabled = true
+	$Particles.visibile = true
 
 func _release():
 	is_grabbed = false
@@ -126,3 +130,7 @@ func boom():
 func _process(delta):
 	if dead and not $Particles.emitting and not $fighterjet2/boom.playing:
 		queue_free()
+
+func _ready():
+	#$Particles.visible = false
+	$Particles.restart()

@@ -7,6 +7,7 @@ extends RigidBody
 const mag = .5 #magnetic strength
 const damp = 1 #velocity damping
 var exploded = false
+var life = 1
 
 
 # Called when the node enters the scene tree for the first time.
@@ -35,12 +36,24 @@ func _process(delta):
 
 
 
+
 func _on_ProximityMine_body_entered(body):
 	if body.get_name() == "walls":
 		self.angular_velocity = Vector3(0,0,0)
 		self.linear_velocity = Vector3(0,0,0)
 		
+func hit(damage):
+	life -= damage
+	if life <= 0:
+		boom()
+		
 func boom():
-	$AudioStreamPlayer3D.play()
-	$Particles.restart()
+	if not exploded:
+		$AudioStreamPlayer3D.play()
+		$Particles.restart()
+		annihilate()
+
+	
+func annihilate():
 	exploded = true
+	$"../..".add_score(100)
