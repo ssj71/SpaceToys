@@ -10,6 +10,7 @@ const alph = 0
 const autoshot = false #for debugging only
 var timer = 0 
 var enabled = false
+var streak = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,12 +29,23 @@ func shoot():
 	#$"../fighterjet2/pew".play()
 	var b = get_overlapping_bodies()
 	$"../fighterjet2/pew".play()
+	var miss = true
 	for body in b:
 		#$"../../../InfoLabel".set_label_text("boom")
 		#TODO: only hit the closest mine
 		if body.get_name().match("*ine*"):
 			body.hit(2)
-	
+			miss = false
+	if miss:
+		streak == 0
+	elif streak == 10:
+		$"..".room.add_score(1000)
+	elif streak == 25:
+		$"..".room.add_score(10000)
+	elif streak == 50:
+		$"..".room.add_score(50000)
+	elif streak == 100:
+		$"..".room.add_score(500000)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

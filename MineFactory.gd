@@ -24,6 +24,9 @@ func _ready():
 	a.translation = Vector3(0,3,0)
 	add_child(a)
 	a.boom()
+	a = plas.instance()
+	add_child(a)
+	a.boom()
 	#the factory does the glow animation on the bullets
 	#so we grab the material here
 	a = load("res://bullet.tscn").instance()
@@ -51,6 +54,7 @@ func _process(delta):
 		produce(level)
 		if(level > 1):
 			$"..".tut(3)
+		$"../newlevel".play()
 	t += delta
 	gc += 1
 	if gc >= glowdecimate:
@@ -59,20 +63,20 @@ func _process(delta):
 		gc = 0
 #	pass
 
-func place(mine):
+func place(mine, i=0):
 	var z = rng.randf_range(.01,top)
 	var ang = rng.randf_range(0,2*PI)
 	var dist = rng.randf_range(0,rad)
 	mine.translation = Vector3(dist*cos(ang), z, dist*sin(ang))
-	#m.translation = Vector3(0,0,.1*i)
+	#mine.translation = Vector3(0,0,.1*i)
 	add_child(mine)
 
 func produce(n):
 	var nprox = rng.randi_range(1,level)
 	for i in range(nprox):
 		var m = prox.instance()
-		place(m)
+		place(m,i)
 	for i in range(level-nprox):
 		var m = plas.instance()
 		m.t = rng.randf_range(0,m.period)
-		place(m)
+		place(m,10)

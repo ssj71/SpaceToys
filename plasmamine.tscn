@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://plasma.gd" type="Script" id=1]
 [ext_resource path="res://Assets/AstroMenace-Mines/Source3D/Mines/mine3.fbx" type="PackedScene" id=2]
 [ext_resource path="res://Assets/sfx/Explosion 1.wav" type="AudioStream" id=3]
+[ext_resource path="res://Assets/sfx/Laser_shoot 3.wav" type="AudioStream" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.0415113
@@ -54,8 +55,11 @@ transform = Transform( 0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0.0296718, 0 )
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 shape = SubResource( 1 )
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="boom" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 3 )
+
+[node name="hurt" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
 
 [node name="Particles" type="Particles" parent="."]
 emitting = false

@@ -28,17 +28,19 @@ func _process(delta):
 		else:
 			cnt = 0
 		t -= period #if delta is ever greater than period this could be problematic
-	if exploded and not $Particles.emitting and not $AudioStreamPlayer3D.playing:
+	if exploded and not $Particles.emitting and not $boom.playing:
 		self.queue_free()
 		
 func hit(damage):
 	life -= damage
 	if life <= 0:
 		boom()
+	else:
+		$hurt.play()
 		
 func boom():
 	if not exploded:
-		$AudioStreamPlayer3D.play()
+		$boom.play()
 		$Particles.restart()
 		annihilate()
 
