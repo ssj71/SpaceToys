@@ -57,3 +57,6 @@ func boom():
 func annihilate():
 	exploded = true
 	$"../..".add_score(100)
+	
+func hit_ship():
+	queue_free()

@@ -5,7 +5,7 @@ extends KinematicBody
 # var a = 2
 # var b = "text"
 var dir = Vector3(0,0,0)
-const speed = .07
+const speed = .08
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,6 +30,9 @@ func _process(delta):
 		elif c.collider.get_name() == "ship2":
 			c.collider.boom()
 #	pass
+
+func hit_ship():
+	pass
 
 
 

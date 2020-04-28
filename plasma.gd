@@ -47,3 +47,6 @@ func boom():
 func annihilate():
 	exploded = true
 	$"../..".add_score(200)
+
+func hit_ship():
+	pass

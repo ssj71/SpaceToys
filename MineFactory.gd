@@ -6,11 +6,13 @@ extends Spatial
 # var b = "text"
 var start = true
 var level = 0
-onready var top = $"../walls".height/2.0-.1
-onready var rad = $"../walls".radius-.01
+onready var top = $"../walls".height
+onready var rad = $"../walls".radius
+const buffer = .05
 var rng
 var prox = preload("res://proximitymine.tscn")
 var plas = preload("res://plasmamine.tscn")
+var lasr = preload("res://lasermine.tscn")
 var bulletmaterial
 
 
@@ -64,19 +66,43 @@ func _process(delta):
 #	pass
 
 func place(mine, i=0):
-	var z = rng.randf_range(.01,top)
+	var z = rng.randf_range(buffer,top-buffer)
 	var ang = rng.randf_range(0,2*PI)
-	var dist = rng.randf_range(0,rad)
+	var dist = rng.randf_range(0,rad-buffer)
 	mine.translation = Vector3(dist*cos(ang), z, dist*sin(ang))
 	#mine.translation = Vector3(0,0,.1*i)
-	add_child(mine)
+	
+func twist(mine):
+	var xr = rng.randi_range(-1,2)
+	var yr = rng.randi_range(-1,2)
+	var ninety = PI/2.0
+	mine.rotate_x(ninety*xr)
+	mine.rotate_y(ninety*yr)
 
 func produce(n):
 	var nprox = rng.randi_range(1,level)
+	#nprox = 0
 	for i in range(nprox):
 		var m = prox.instance()
 		place(m,i)
-	for i in range(level-nprox):
+		add_child(m)
+		
+	if nprox == level:
+		return
+	var nplas = rng.randi_range(1,level-nprox)
+	#nplas = 0
+	for i in range(nplas):
 		var m = plas.instance()
 		m.t = rng.randf_range(0,m.period)
-		place(m,10)
+		place(m,nprox + i)
+		add_child(m)
+		
+	if nplas+nprox == level:
+		return
+	var nlasr = rng.randi_range(1,level-nprox-nplas)
+	for i in range(nlasr):
+		var m = lasr.instance()
+		m.t = rng.randf_range(0,m.period)
+		twist(m)
+		place(m,nprox + nplas + i)
+		add_child(m)

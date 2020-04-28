@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://ship2.tscn" type="PackedScene" id=1]
 [ext_resource path="res://OQ_Toolkit/OQ_UI2D/OQ_UI2DLabel.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://OQ_Toolkit/OQ_Interactables/OQ_ButtonPressable.tscn" type="PackedScene" id=14]
 [ext_resource path="res://MineFactory.gd" type="Script" id=15]
 [ext_resource path="res://Assets/sfx/beam.wav" type="AudioStream" id=16]
+[ext_resource path="res://lasermine.tscn" type="PackedScene" id=17]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.709804, 0, 0, 0 )
@@ -92,8 +93,10 @@ background_color = Color( 0, 0, 0, 0 )
 transparent = true
 
 [node name="MineFactory" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 script = ExtResource( 15 )
+
+[node name="LaserMine" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.986204, 0 )
 
 [node name="newlevel" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )

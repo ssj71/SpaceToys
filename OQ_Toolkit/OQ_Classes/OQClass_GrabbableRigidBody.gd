@@ -104,6 +104,9 @@ func _integrate_forces(state):
 func _on_OQ_RightController_button_pressed(button):
 	if button == 15:
 		$Crosshair.shoot()
+		
+func _on_OQ_RightController_button_released(button):
+	pass
 	
 func _on_OQ_LeftController_button_pressed(button):
 	if button == 15:
@@ -112,12 +115,13 @@ func _on_OQ_LeftController_button_pressed(button):
 func _on_ship2_body_entered(body):
 	var p = body.get_parent()
 	var name = body.get_name()
+	print("ship col",name)
 	if name == "walls":
 		self.linear_velocity = Vector3(0,0,0);
 		self.angular_velocity = Vector3(0,0,0)
 	elif name.match("*ine*"):
 		boom()
-		body.queue_free()
+		body.hit_ship()
 		
 var dead = false
 func boom():
