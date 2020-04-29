@@ -2,19 +2,21 @@ extends StaticBody
 
 
 # Declare member variables here. Examples:
-const tgrow = 4
-const thold = 2
+const tgrow = 5
+const thold = 1
 const trotate = 1
 const period = tgrow+thold+trotate
 const rspeed = 45*PI/180/trotate
-const gspeed = 150/tgrow
+const gspeed = 5.0/tgrow
 var t = 0.0
 var exploded = false
 var rotated45 = false
 var life = 5
+var first = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$minelasers.extend(0)
 	pass # Replace with function body.
 
 
@@ -27,33 +29,27 @@ func _process(delta):
 			rotate_object_local(Vector3(0,1,0), -rspeed*delta)
 		else:
 			#rotation[1] += rspeed*delta
-			rotate_object_local(Vector3(0,1,0), 
-			rspeed*delta)
-			pass
-		pass
-	elif t <= tgrow:
-		$laserx.scale[2] += gspeed*delta
-		$laserz.scale[2] += gspeed*delta
-		scanforship()
+			rotate_object_local(Vector3(0,1,0), rspeed*delta)
+		first = false
+	elif t <= tgrow-trotate:
+		if not first:
+			$minelasers.extend(gspeed*(t-trotate))
 	elif t >= period:
-		$laserx.scale[2] = 1
-		$laserz.scale[2] = 1
+		$minelasers.extend(0)
+		#$laserx.scale[2] = 1
+		#$laserz.scale[2] = 1
 		rotated45 = not rotated45
 		t -= period #if delta is ever greater than period this could be problematic
+		first = false
 	else:
 		#hold
-		scanforship()
-	
+		pass
+	$minelasers.scanforship()
 	if exploded and not $Particles.emitting and not $boom.playing:
 		self.queue_free()
 		
-func scanforship():
-	var b = $laserx.get_overlapping_bodies()
-	b += $laserz.get_overlapping_bodies()
-	for body in b:
-		print(body.get_name())
-		if body.get_name() == "ship2":
-			body.boom()
+
+	
 		
 func hit(damage):
 	life -= damage
@@ -67,6 +63,7 @@ func boom():
 		$boom.play()
 		$Particles.restart()
 		annihilate()
+		$minelasers.visible = false
 
 func annihilate():
 	exploded = true

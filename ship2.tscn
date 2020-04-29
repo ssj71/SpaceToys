@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://OQ_Toolkit/OQ_Classes/OQClass_GrabbableRigidBody.gd" type="Script" id=1]
 [ext_resource path="res://Crosshair.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/fightership/fighterjet2.fbx" type="PackedScene" id=3]
 [ext_resource path="res://Assets/sfx/Laser_shoot 5.wav" type="AudioStream" id=4]
 [ext_resource path="res://Assets/sfx/Explosion 2.wav" type="AudioStream" id=5]
+[ext_resource path="res://Assets/sfx/bonus.wav" type="AudioStream" id=6]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.0674957, 0.0203625, 0.0515026 )
@@ -43,7 +44,7 @@ radius = 0.03
 height = 0.06
 
 [node name="ship2" type="RigidBody"]
-collision_layer = 7
+collision_layer = 15
 collision_mask = 3
 contacts_reported = 1
 contact_monitor = true
@@ -52,18 +53,23 @@ script = ExtResource( 1 )
 [node name="fighterjet2" parent="." instance=ExtResource( 3 )]
 transform = Transform( -3.25841e-09, 0, -0.02, 0, 0.02, 0, 0.02, 0, -3.25841e-09, 0, 0, 0 )
 
-[node name="pew" type="AudioStreamPlayer3D" parent="fighterjet2"]
-stream = ExtResource( 4 )
-
-[node name="boom" type="AudioStreamPlayer3D" parent="fighterjet2"]
-stream = ExtResource( 5 )
-
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0105445, 0.00979154, 0 )
 shape = SubResource( 1 )
 
 [node name="Crosshair" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0662666 )
+
+[node name="pew" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0, 0, 0 )
+stream = ExtResource( 4 )
+
+[node name="boom" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0, 0, 0 )
+stream = ExtResource( 5 )
+
+[node name="bonus" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 6 )
 
 [node name="Particles" type="Particles" parent="."]
 emitting = false

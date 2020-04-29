@@ -115,7 +115,6 @@ func _on_OQ_LeftController_button_pressed(button):
 func _on_ship2_body_entered(body):
 	var p = body.get_parent()
 	var name = body.get_name()
-	print("ship col",name)
 	if name == "walls":
 		self.linear_velocity = Vector3(0,0,0);
 		self.angular_velocity = Vector3(0,0,0)
@@ -125,14 +124,16 @@ func _on_ship2_body_entered(body):
 		
 var dead = false
 func boom():
-	$fighterjet2/boom.play()
+	if dead:
+		return
+	$boom.play()
 	$fighterjet2.visible = false
 	$Particles.restart()
 	dead = true
 	grab_release()
 	
 func _process(delta):
-	if dead and not $Particles.emitting and not $fighterjet2/boom.playing:
+	if dead and not $Particles.emitting and not $boom.playing:
 		queue_free()
 
 func _ready():

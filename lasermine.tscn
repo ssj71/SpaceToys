@@ -1,26 +1,14 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/sfx/Explosion 1.wav" type="AudioStream" id=1]
 [ext_resource path="res://Assets/AstroMenace-Mines/Source3D/Mines/mine4.fbx" type="PackedScene" id=2]
 [ext_resource path="res://Assets/sfx/Laser_shoot 3.wav" type="AudioStream" id=3]
 [ext_resource path="res://lasermine.gd" type="Script" id=4]
+[ext_resource path="res://lasers.gd" type="Script" id=5]
 
 [sub_resource type="CylinderShape" id=1]
-radius = 0.0477625
+radius = 0.0488128
 height = 0.0614809
-
-[sub_resource type="CylinderShape" id=12]
-radius = 0.004696
-height = 0.0255702
-
-[sub_resource type="SpatialMaterial" id=11]
-flags_transparent = true
-albedo_color = Color( 0.619608, 0, 0, 1 )
-emission_enabled = true
-emission = Color( 1, 0.207843, 0.207843, 1 )
-emission_energy = 1.0
-emission_operator = 0
-emission_on_uv2 = false
 
 [sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0.123123, 0.294294, 0.585586, 0.858859, 1 )
@@ -56,9 +44,22 @@ material = SubResource( 8 )
 radius = 0.01
 height = 0.02
 
+[sub_resource type="CylinderShape" id=12]
+radius = 0.00397595
+height = 0.1
+
+[sub_resource type="SpatialMaterial" id=11]
+flags_transparent = true
+albedo_color = Color( 0.619608, 0, 0, 1 )
+emission_enabled = true
+emission = Color( 1, 0.207843, 0.207843, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
 [node name="LaserMine" type="StaticBody"]
 collision_layer = 2
-collision_mask = 6
+collision_mask = 0
 script = ExtResource( 4 )
 
 [node name="mine4" parent="." instance=ExtResource( 2 )]
@@ -66,36 +67,6 @@ transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, -0.0151784, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
-
-[node name="laserx" type="Area" parent="."]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 0.0258059, 0 )
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape" type="CollisionShape" parent="laserx"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-shape = SubResource( 12 )
-
-[node name="CSGCylinder" type="CSGCylinder" parent="laserx"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-radius = 0.005
-height = 0.026
-material = SubResource( 11 )
-
-[node name="laserz" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0258059, 0 )
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape" type="CollisionShape" parent="laserz"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-shape = SubResource( 12 )
-
-[node name="CSGCylinder" type="CSGCylinder" parent="laserz"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-radius = 0.005
-height = 0.026
-material = SubResource( 11 )
 
 [node name="boom" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 1 )
@@ -112,3 +83,32 @@ explosiveness = 0.1
 randomness = 0.4
 process_material = SubResource( 7 )
 draw_pass_1 = SubResource( 9 )
+
+[node name="minelasers" type="KinematicBody" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource( 5 )
+
+[node name="Collisionx" type="CollisionShape" parent="minelasers"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.0264155, 0 )
+shape = SubResource( 12 )
+
+[node name="laserx" type="CSGCylinder" parent="minelasers"]
+transform = Transform( -1.62921e-07, 0, 1, 1, -1.62921e-07, 1.62921e-07, 1.62921e-07, 1, 2.65431e-14, 0, 0.0260146, -9.71445e-16 )
+collision_layer = 8
+collision_mask = 0
+radius = 0.005
+height = 0.1
+material = SubResource( 11 )
+
+[node name="Collisionz" type="CollisionShape" parent="minelasers"]
+transform = Transform( -1.62921e-07, 1, -1.62921e-07, 0, -1.62921e-07, -1, -1, -1.62921e-07, 2.65431e-14, 0, 0.0264155, 0 )
+shape = SubResource( 12 )
+
+[node name="laserz" type="CSGCylinder" parent="minelasers"]
+transform = Transform( 1.62921e-07, 1, -1.62921e-07, 1, -1.62921e-07, 1.62921e-07, 1.62921e-07, -1.62921e-07, -1, -9.71445e-16, 0.0260146, 1.58819e-22 )
+collision_layer = 8
+collision_mask = 0
+radius = 0.005
+height = 0.1
+material = SubResource( 11 )

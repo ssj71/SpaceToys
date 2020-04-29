@@ -28,7 +28,7 @@ func shoot():
 	$laser.material.albedo_color.a = 255
 	#$"../fighterjet2/pew".play()
 	var b = get_overlapping_bodies()
-	$"../fighterjet2/pew".play()
+	$"../pew".play()
 	var miss = true
 	for body in b:
 		#$"../../../InfoLabel".set_label_text("boom")
@@ -36,16 +36,21 @@ func shoot():
 		if body.get_name().match("*ine*"):
 			body.hit(2)
 			miss = false
+	streak += 1
 	if miss:
 		streak == 0
 	elif streak == 10:
-		$"..".room.add_score(1000)
+		$"..".room.bonus(1000)
+		$"../bonus".play()
 	elif streak == 25:
-		$"..".room.add_score(10000)
+		$"..".room.bonus(10000)
+		$"../bonus".play()
 	elif streak == 50:
-		$"..".room.add_score(50000)
+		$"..".room.bonus(50000)
+		$"../bonus".play()
 	elif streak == 100:
-		$"..".room.add_score(500000)
+		$"..".room.bonus(500000)
+		$"../bonus".play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
