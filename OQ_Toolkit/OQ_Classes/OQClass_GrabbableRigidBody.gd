@@ -130,10 +130,13 @@ func boom():
 	$fighterjet2.visible = false
 	$Particles.restart()
 	dead = true
-	grab_release()
+	if is_grabbed:
+		$"..".release()
 	
 func _process(delta):
 	if dead and not $Particles.emitting and not $boom.playing:
+		if is_grabbed:
+			$"..".release()
 		queue_free()
 
 func _ready():
