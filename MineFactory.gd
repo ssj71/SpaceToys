@@ -92,19 +92,18 @@ func produce(n):
 		place(m,i)
 		add_child(m)
 		
-	if nprox == level:
-		return
-	var nplas = rng.randi_range(1,level-nprox)
-	#nplas = 0
+	var nplas = rng.randi_range(1,level)
+	if level < 2:
+		nplas = 0
 	for i in range(nplas):
 		var m = plas.instance()
 		m.t = rng.randf_range(0,m.period)
 		place(m,nprox + i)
 		add_child(m)
 		
-	if nplas+nprox == level:
-		return
-	var nlasr = rng.randi_range(1,level-nprox-nplas)
+	var nlasr = rng.randi_range(1,level)
+	if level < 4:
+		nlasr = 0
 	for i in range(nlasr):
 		var m = lasr.instance()
 		m.t = rng.randf_range(0,m.period)
