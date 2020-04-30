@@ -27,6 +27,11 @@ func _ready():
 	add_child(a)
 	a.boom()
 	a = plas.instance()
+	a.t = a.period
+	add_child(a)
+	a.boom()
+	a = lasr.instance()
+	a.translate(Vector3(0,1,0))
 	add_child(a)
 	a.boom()
 	#the factory does the glow animation on the bullets

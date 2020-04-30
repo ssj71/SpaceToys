@@ -4,7 +4,7 @@ extends Spatial
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var score = -300 #because of our hacks of exploding mines at startup, we have to preload the score
+var score = -600 #because of our hacks of exploding mines at startup, we have to preload the score
 var tutstep = 0
 var hidelabel = 0
 
