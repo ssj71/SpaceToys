@@ -38,7 +38,7 @@ func shoot():
 			miss = false
 	streak += 1
 	if miss:
-		streak == 0
+		streak = 0
 	elif streak == 10:
 		$"..".room.bonus(1000)
 		$"../bonus".play()
