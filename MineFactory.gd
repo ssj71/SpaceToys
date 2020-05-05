@@ -9,10 +9,12 @@ var level = 0
 onready var top = $"../walls".height
 onready var rad = $"../walls".radius
 const buffer = .1
+const nuklevel = 8
 var rng
 var prox = preload("res://proximitymine.tscn")
 var plas = preload("res://plasmamine.tscn")
 var lasr = preload("res://lasermine.tscn")
+var nuke = preload("res://nuclearmine.tscn")
 var bulletmaterial
 
 
@@ -32,6 +34,10 @@ func _ready():
 	a.boom()
 	a = lasr.instance()
 	a.translate(Vector3(0,1,0))
+	add_child(a)
+	a.boom()
+	a = nuke.instance()
+	a.translate(Vector3(0,1,-4))
 	add_child(a)
 	a.boom()
 	#the factory does the glow animation on the bullets
@@ -85,15 +91,17 @@ func twist(mine):
 	mine.rotate_y(ninety*yr)
 
 func produce(n):
+	
 	var nprox = rng.randi_range(1,level)
-	#nprox = 0
+	if level == nuklevel:
+		nprox = 0
 	for i in range(nprox):
 		var m = prox.instance()
 		place(m,i)
 		add_child(m)
 		
 	var nplas = rng.randi_range(1,level)
-	if level < 2:
+	if level < 2 or level == nuklevel:
 		nplas = 0
 	for i in range(nplas):
 		var m = plas.instance()
@@ -102,7 +110,7 @@ func produce(n):
 		add_child(m)
 		
 	var nlasr = rng.randi_range(1,level)
-	if level < 4:
+	if level < 4 or level == nuklevel:
 		nlasr = 0
 	for i in range(nlasr):
 		var m = lasr.instance()
@@ -110,8 +118,19 @@ func produce(n):
 		twist(m)
 		place(m,nprox + nplas + i)
 		add_child(m)
-		
-	#fill the rest in with plasmamines
+	
+	var nnuk = rng.randi_range(0,3)
+	if level <= nuklevel:
+		nnuk = 0
+		if level == nuklevel:
+			nnuk = 1
+			nprox = nuklevel #fake like the level is full
+	for i in range(nnuk):
+		var m = nuke.instance()
+		place(m,nprox + nplas + nlasr + i)
+		add_child(m)
+			
+	#fill the rest in with plasmamines if needed
 	for i in range(level-nplas-nprox-nlasr):
 		var m = plas.instance()
 		m.t = rng.randf_range(0,m.period)

@@ -2,7 +2,7 @@ extends StaticBody
 
 
 # Declare member variables here. Examples:
-const period = 3
+const period = 2.5
 const cluster = 3
 var t = 0.0
 var cnt = 0

@@ -9,21 +9,21 @@
 radius = 0.0415113
 height = 0.0631341
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0.123123, 0.294294, 0.585586, 0.858859, 1 )
 colors = PoolColorArray( 0.901961, 0.976471, 0.0156863, 1, 0.968627, 0.0431373, 0.0235294, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 3 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 0.499899 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=6]
+[sub_resource type="CurveTexture" id=5]
 width = 100
-curve = SubResource( 5 )
+curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=6]
 lifetime_randomness = 0.19
 direction = Vector3( 0, 0, 0 )
 spread = 180.0
@@ -32,14 +32,14 @@ initial_velocity = 1.0
 linear_accel = -1.95
 scale = 3.0
 scale_random = 0.01
-scale_curve = SubResource( 6 )
-color_ramp = SubResource( 4 )
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=7]
 vertex_color_use_as_albedo = true
 
-[sub_resource type="SphereMesh" id=9]
-material = SubResource( 8 )
+[sub_resource type="SphereMesh" id=8]
+material = SubResource( 7 )
 radius = 0.01
 height = 0.02
 
@@ -68,5 +68,5 @@ lifetime = 0.31
 one_shot = true
 explosiveness = 0.1
 randomness = 0.4
-process_material = SubResource( 7 )
-draw_pass_1 = SubResource( 9 )
+process_material = SubResource( 6 )
+draw_pass_1 = SubResource( 8 )

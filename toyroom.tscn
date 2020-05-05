@@ -57,7 +57,7 @@ text = "Grab the ship!"
 background_color = Color( 0.00392157, 0, 0.392157, 1 )
 
 [node name="OQ_ButtonPressable" parent="." instance=ExtResource( 14 )]
-transform = Transform( 1, 1.49012e-08, 0, 0, 1, -5.96046e-08, 0, 0, 1, 0.149069, 1.16851, -0.946422 )
+transform = Transform( 1, 1.49012e-08, 0, 0, 1, -5.96046e-08, 0, 0, 1, 0.149069, 1.16851, -1.28427 )
 
 [node name="ship2" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.4 )

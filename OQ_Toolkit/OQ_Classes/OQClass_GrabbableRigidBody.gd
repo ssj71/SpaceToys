@@ -116,6 +116,8 @@ func _on_ship2_body_entered(body):
 	var p = body.get_parent()
 	var name = body.get_name()
 	if name == "walls":
+		if is_grabbed:
+			$"..".release()
 		self.linear_velocity = Vector3(0,0,0);
 		self.angular_velocity = Vector3(0,0,0)
 	elif name.match("*ine*"):
