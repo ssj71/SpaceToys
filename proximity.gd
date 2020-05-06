@@ -44,8 +44,11 @@ func _on_ProximityMine_body_entered(body):
 		
 func hit(damage):
 	life -= damage
+	var ret = false
 	if life <= 0:
+		ret = !exploded
 		boom()
+	return ret
 		
 func boom():
 	if not exploded:
@@ -56,7 +59,7 @@ func boom():
 	
 func annihilate():
 	exploded = true
-	$"../..".add_score(100)
+	$"../../scorekeeper".add_score(100)
 	
 func hit_ship():
 	queue_free()

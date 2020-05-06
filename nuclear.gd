@@ -41,17 +41,19 @@ func _process(delta):
 	
 		
 func hit(damage):
-	boom()
+	return boom()
 		
 func boom():
-	annihilate()
+	return annihilate()
 
 func annihilate():
 	if not blowing:
 		blowing = true
 		$booooooom.play()
 		$explosion.visible = true
-		$"../..".add_score(100)
+		$"../../scorekeeper".add_score(100)
+		return true
+	return false
 
 func hit_ship():
 	boom()

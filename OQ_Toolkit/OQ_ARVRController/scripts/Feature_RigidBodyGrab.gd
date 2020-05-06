@@ -4,7 +4,6 @@
 extends Spatial
 class_name Feature_RigidBodyGrab
 
-
 var controller : ARVRController = null;
 var grab_area : Area = null;
 var held_object = null;
@@ -21,7 +20,7 @@ onready var _hinge_joint : HingeJoint = $HingeJoint;
 
 export var reparent_mesh = false;
 
-export var hide_model_on_grab := false
+export var hide_model_on_grab := false;
 
 func _ready():
 	controller = get_parent();
@@ -73,6 +72,7 @@ func grab() -> void:
 				start_grab_velocity(grabbable_rigid_body);
 			vr.GrabTypes.HINGEJOINT:
 				start_grab_hinge_joint(grabbable_rigid_body);
+
 		if hide_model_on_grab:
 			#make model dissappear
 			var model = $"../Feature_ControllerModel_Left"
@@ -95,6 +95,7 @@ func release():
 			release_grab_velocity()
 		vr.GrabTypes.HINGEJOINT:
 			release_grab_hinge_joint()
+
 	if hide_model_on_grab:
 		#make model reappear
 		var model = $"../Feature_ControllerModel_Left"

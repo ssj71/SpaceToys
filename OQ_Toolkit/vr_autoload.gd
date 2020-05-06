@@ -527,21 +527,25 @@ func _perform_switch_scene(scene_path):
 	print("_perform_switch_scene")
 	print(scene_path)
 	
-	for s in scene_switch_root.get_children():
-		if (s.has_method("scene_exit")): s.scene_exit();
-		scene_switch_root.remove_child(s);
-		s.queue_free();
-		_dbg_labels.clear(); # make sure to also clear the debug label dictionary as they might be created in the scene above
+	if scene_switch_root != null:
+		for s in scene_switch_root.get_children():
+			if (s.has_method("scene_exit")): s.scene_exit();
+			scene_switch_root.remove_child(s);
+			s.queue_free();
+			_dbg_labels.clear(); # make sure to also clear the debug label dictionary as they might be created in the scene above
 
-	var next_scene_resource = load(scene_path);
-	if (next_scene_resource):
-		_active_scene_path = scene_path;
-		var next_scene = next_scene_resource.instance();
-		log_info("    switching to scene '%s'" % scene_path)
-		scene_switch_root.add_child(next_scene);
-		if (next_scene.has_method("scene_enter")): next_scene.scene_enter();
+		var next_scene_resource = load(scene_path);
+		if (next_scene_resource):
+			_active_scene_path = scene_path;
+			var next_scene = next_scene_resource.instance();
+			log_info("    switching to scene '%s'" % scene_path)
+			scene_switch_root.add_child(next_scene);
+			if (next_scene.has_method("scene_enter")): next_scene.scene_enter();
+		else:
+			log_error("could not load scene '%s'" % scene_path)
 	else:
-		log_error("could not load scene '%s'" % scene_path)
+		get_tree().change_scene(scene_path)
+	
 
 
 var _target_scene_path = null;
@@ -558,7 +562,7 @@ func switch_scene(scene_path, fade_time = 0.1, wait_time = 0.0):
 		yield(get_tree().create_timer(wait_time), "timeout")
 
 	if (scene_switch_root == null):
-		log_error("vr.switch_scene(...) called but no scene_switch_root configured");
+		log_error("vr.switch_scene(...) called but no scene_switch_root configured. Will use default scene change.");
 	if (_active_scene_path == scene_path): return;
 
 	if (fade_time <= 0.0):
@@ -578,7 +582,7 @@ func _check_for_scene_switch_and_fade(dt):
 	switch_scene_in_progress = false;
 	if (_target_scene_path != null && !_switch_performed):
 		if (_scene_switch_fade_out_time < _scene_switch_fade_out_duration):
-			var c = 1.0 - _scene_switch_fade_out_time / _scene_switch_fade_out_duration;
+			var c = 1.0 - min(1.0, _scene_switch_fade_out_time / (_scene_switch_fade_out_duration*0.9));
 			set_default_layer_color_scale(Color(c, c, c, c));
 			_scene_switch_fade_out_time += dt;
 			switch_scene_in_progress = true;
@@ -620,12 +624,22 @@ func _process(dt):
 func initialize():
 	_init_vr_log();
 	
-	log_info("Initializing VR");
-	log_info("  Available Interfaces are %s: " % str(ARVRServer.get_interfaces()));
+	var available_interfaces = ARVRServer.get_interfaces();
 	
-	var arvr_ovr_mobile_interface = ARVRServer.find_interface("OVRMobile");
-	var arvr_oculus_interface = ARVRServer.find_interface("Oculus");
-	var arvr_open_vr_interface = ARVRServer.find_interface("OpenVR");
+	log_info("Initializing VR");
+	log_info("  Available Interfaces are %s: " % str(available_interfaces));
+	
+	var arvr_ovr_mobile_interface = null;
+	var arvr_oculus_interface = null;
+	var arvr_open_vr_interface = null;
+	for interface in available_interfaces:
+		match interface.name:
+			"OVRMobile":
+				arvr_ovr_mobile_interface = ARVRServer.find_interface("OVRMobile");
+			"Oculus":
+				arvr_oculus_interface = ARVRServer.find_interface("Oculus");
+			"OpenVR":
+				arvr_open_vr_interface = ARVRServer.find_interface("OpenVR");
 	
 	if arvr_ovr_mobile_interface:
 		log_info("  Found OVRMobile Interface.");
@@ -651,6 +665,7 @@ func initialize():
 		log_info("  Found OpenVR Interface.");
 		if arvr_open_vr_interface.initialize():
 			get_viewport().arvr = true;
+			get_viewport().keep_3d_linear = true
 			Engine.target_fps = 90 # TODO: this is headset dependent => figure out how to get this info at runtime
 			OS.vsync_enabled = false;
 			inVR = true;

@@ -34,22 +34,23 @@ func shoot():
 		#$"../../../InfoLabel".set_label_text("boom")
 		#TODO: only hit the closest mine
 		if body.get_name().match("*ine*"):
-			body.hit(2)
+			if body.hit(2):
+				$"..".room.mine_cleared()
 			miss = false
 	streak += 1
 	if miss:
 		streak = 0
 	elif streak == 10:
-		$"..".room.bonus(1000)
+		$"..".room.bonus(1000,"Nice Shooting!")
 		$"../bonus".play()
 	elif streak == 25:
-		$"..".room.bonus(10000)
+		$"..".room.bonus(10000,"Great Shooting!")
 		$"../bonus".play()
 	elif streak == 50:
-		$"..".room.bonus(50000)
+		$"..".room.bonus(50000,"Amazing Shooting!")
 		$"../bonus".play()
 	elif streak == 100:
-		$"..".room.bonus(500000)
+		$"..".room.bonus(500000,"Incredible Shooting!")
 		$"../bonus".play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -101,7 +101,6 @@ func button_press(_other_area: Area):
 	is_on = !is_on
 	switch_mat(is_on)
 	emit_signal("button_pressed")
-	get_tree().reload_current_scene()
 
 
 func switch_mat(_is_on):

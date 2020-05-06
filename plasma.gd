@@ -33,10 +33,13 @@ func _process(delta):
 		
 func hit(damage):
 	life -= damage
+	var ret = false
 	if life <= 0:
+		ret = !exploded
 		boom()
 	else:
 		$hurt.play()
+	return ret
 		
 func boom():
 	if not exploded:
@@ -46,7 +49,7 @@ func boom():
 
 func annihilate():
 	exploded = true
-	$"../..".add_score(200)
+	$"../../scorekeeper".add_score(200)
 
 func hit_ship():
 	pass

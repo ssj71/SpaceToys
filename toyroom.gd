@@ -5,6 +5,7 @@ extends Spatial
 # var a = 2
 # var b = "text"
 var score = -700 #because of our hacks of exploding mines at startup, we have to preload the score
+var minescleared = 0
 var tutstep = 0
 var hidelabel = 0
 
@@ -13,10 +14,6 @@ var hidelabel = 0
 func _ready():
 	pass # Replace with function body.
 
-func add_score(plus):
-	score += plus
-	
-	$score.set_label_text("%06d" % (score))
 	
 func tut(step):
 	if(step > tutstep):
@@ -30,11 +27,15 @@ func tut(step):
 			$title.visible = false
 			$InfoLabel.visible = false
 
-func bonus(plus):
-	$InfoLabel.set_label_text("Great Shooting! +%d" % (plus))
+func bonus(plus,text):
+	show_prompt(text+" +%d" % (plus),3)
+	$scorekeeper.add_score(plus)
+
+func show_prompt(text, time):
+	$InfoLabel.set_label_text(text)
 	$InfoLabel.visible = true
-	hidelabel = 3
-	add_score(plus)
+	hidelabel = time
+	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
