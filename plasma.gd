@@ -35,7 +35,7 @@ func hit(damage):
 	life -= damage
 	var ret = false
 	if life <= 0:
-		ret = !exploded
+		ret = not exploded
 		boom()
 	else:
 		$hurt.play()

@@ -11,6 +11,7 @@ const autoshot = false #for debugging only
 var timer = 0 
 var enabled = false
 var streak = 0
+var power = 2
 
 
 # Called when the node enters the scene tree for the first time.
@@ -34,17 +35,17 @@ func shoot():
 		#$"../../../InfoLabel".set_label_text("boom")
 		#TODO: only hit the closest mine
 		if body.get_name().match("*ine*"):
-			if body.hit(2):
-				$"..".room.mine_cleared()
+			if body.hit(power):
+				$"..".room.find_node("scorekeeper").mine_cleared()
 			miss = false
 	streak += 1
 	if miss:
 		streak = 0
 	elif streak == 10:
-		$"..".room.bonus(1000,"Nice Shooting!")
+		$"..".room.bonus(1000,"Nice Shooting.")
 		$"../bonus".play()
 	elif streak == 25:
-		$"..".room.bonus(10000,"Great Shooting!")
+		$"..".room.bonus(10000,"Great Shooting.")
 		$"../bonus".play()
 	elif streak == 50:
 		$"..".room.bonus(50000,"Amazing Shooting!")
