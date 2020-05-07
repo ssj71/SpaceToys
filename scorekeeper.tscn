@@ -12,7 +12,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1 )
 visible = false
 
 [node name="hinames" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.84172, 18, -18 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.50275, 18, -18 )
 text = "Hi-Scores"
 font_size_multiplier = 80.0
 font_color = Color( 0.960784, 0.137255, 0.00392157, 1 )
@@ -20,7 +20,7 @@ background_color = Color( 0, 0, 0, 0 )
 transparent = true
 
 [node name="hiscores" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.95084, 18, -18 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.52411, 18, -18 )
 text = "327000"
 font_size_multiplier = 80.0
 font_color = Color( 0.960784, 0.137255, 0.00392157, 1 )
@@ -28,7 +28,7 @@ background_color = Color( 0, 0, 0, 0 )
 transparent = true
 
 [node name="hiextra" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5748, 17.9779, -17.982 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4282, 17.9779, -17.982 )
 text = "(01, 020)"
 font_size_multiplier = 40.0
 font_color = Color( 0.960784, 0.137255, 0.00392157, 1 )
