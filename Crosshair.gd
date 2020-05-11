@@ -35,9 +35,10 @@ func shoot():
 		#$"../../../InfoLabel".set_label_text("boom")
 		#TODO: only hit the closest mine
 		if body.get_name().match("*ine*"):
-			if body.hit(power):
-				$"..".room.find_node("scorekeeper").mine_cleared()
-			miss = false
+			if body.get_parent().get_name() == "activemines":
+				if body.hit(power):
+					$"..".room.find_node("scorekeeper").mine_cleared()
+				miss = false
 	streak += 1
 	if miss:
 		streak = 0

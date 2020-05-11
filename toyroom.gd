@@ -45,13 +45,6 @@ func _process(delta):
 			hidelabel = 0
 			$InfoLabel.visible = false
 	
-	if $MineFactory.get_child_count() == 0:
-		$MineFactory.nextlevel()
-		if($MineFactory.level > 1):
-			tut(3)
-		$newlevel.play()
-		
-	$MineFactory.bulletglow(delta)
 
 
 func _on_reset_button_button_pressed():

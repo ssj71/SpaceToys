@@ -8,7 +8,9 @@ var t = 0.0
 var cnt = 0
 var plas = preload("res://bullet.tscn")
 var exploded = false
-var life = 3
+const startlife = 3
+var life = startlife
+onready var pool = get_parent()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,20 +18,21 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func process(delta):
 	t += delta
 	if t >= period:
 		if cnt < cluster:
-			var b = plas.instance()
-			$"../..".add_child(b)
-			b.global_transform.origin = global_transform.origin
-			b.fire()
+			$"../..".fire(global_transform.origin)
 			cnt += 1
 		else:
 			cnt = 0
 		t -= period #if delta is ever greater than period this could be problematic
 	if exploded and not $Particles.emitting and not $boom.playing:
-		self.queue_free()
+		$"..".remove_child(self)
+		pool.add_child(self)
+		exploded = false
+		life = startlife
+		
 		
 func hit(damage):
 	life -= damage
@@ -49,7 +52,7 @@ func boom():
 
 func annihilate():
 	exploded = true
-	$"../../scorekeeper".add_score(200)
+	$"../../../scorekeeper".add_score(200)
 
 func hit_ship():
 	pass

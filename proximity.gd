@@ -8,6 +8,7 @@ const mag = .5 #magnetic strength
 const damp = 1 #velocity damping
 var exploded = false
 var life = 1
+onready var pool = get_parent()
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,8 +16,7 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func process(delta):
 	var b = $PromityDetection.get_overlapping_bodies()
 	var forced = false
 	for body in b:
@@ -31,17 +31,17 @@ func _process(delta):
 				forced = true
 	if !forced:
 		self.add_central_force(Vector3(0,0,0))
-	if exploded and not $Particles.emitting and not $AudioStreamPlayer3D.playing:
-		self.queue_free()
-
-
-
+	if exploded and not $Particles.emitting and not $boom.playing:
+		$"..".remove_child(self)
+		pool.add_child(self)
+		exploded = false
+		life = 1
 
 func _on_ProximityMine_body_entered(body):
 	if body.get_name() == "walls":
 		self.angular_velocity = Vector3(0,0,0)
 		self.linear_velocity = Vector3(0,0,0)
-		
+
 func hit(damage):
 	life -= damage
 	var ret = false
@@ -52,14 +52,15 @@ func hit(damage):
 		
 func boom():
 	if not exploded:
-		$AudioStreamPlayer3D.play()
+		$boom.play()
 		$Particles.restart()
 		annihilate()
 
 	
 func annihilate():
-	exploded = true
-	$"../../scorekeeper".add_score(100)
+	if not exploded:
+		exploded = true
+		$"../../../scorekeeper".add_score(100)
 	
 func hit_ship():
-	queue_free()
+	exploded = true

@@ -55,6 +55,7 @@ func _process(delta):
 		if is_grabbed:
 			$"..".release()
 		room.get_node("scorekeeper").show_scores()
+		room.get_node("MineFactory").ship = null
 		queue_free()
 
 func _ready():

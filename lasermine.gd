@@ -11,8 +11,10 @@ const gspeed = 5.0/tgrow
 var t = 0.0
 var exploded = false
 var rotated45 = false
-var life = 5
+const startlife = 5
+var life = startlife
 var first = true
+onready var pool = get_parent()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,14 +23,12 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func process(delta):
 	t += delta
 	if t <= trotate:
 		if rotated45:
-			#rotation[1] -= rspeed*delta
 			rotate_object_local(Vector3(0,1,0), -rspeed*delta)
 		else:
-			#rotation[1] += rspeed*delta
 			rotate_object_local(Vector3(0,1,0), rspeed*delta)
 		first = false
 	elif t <= tgrow-trotate:
@@ -46,7 +46,13 @@ func _process(delta):
 		pass
 	$minelasers.scanforship()
 	if exploded and not $Particles.emitting and not $boom.playing:
-		self.queue_free()
+		$"..".remove_child(self)
+		pool.add_child(self)
+		exploded = false
+		$minelasers.extend(0)
+		first = true
+		life = startlife
+		#rotation = Vector3(0,0,0)
 		
 
 	
@@ -70,7 +76,7 @@ func boom():
 
 func annihilate():
 	exploded = true
-	$"../../scorekeeper".add_score(300)
+	$"../../../scorekeeper".add_score(300)
 
 func hit_ship():
 	pass

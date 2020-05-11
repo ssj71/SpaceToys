@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://OQ_Toolkit/OQ_Classes/OQClass_GrabbableRigidBody.gd" type="Script" id=1]
+[ext_resource path="res://ship2.gd" type="Script" id=1]
 [ext_resource path="res://Crosshair.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/fightership/fighterjet2.fbx" type="PackedScene" id=3]
 [ext_resource path="res://Assets/sfx/Laser_shoot 5.wav" type="AudioStream" id=4]

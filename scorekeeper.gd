@@ -42,9 +42,6 @@ func newhigh():
 	$"../OQ_ARVROrigin/OQ_RightController/Feature_UIRayCast".visible = true
 	$OQ_UI2DKeyboard.set_prompt("ace")
 	$"..".show_prompt("Enter name for new high score!",10)
-	#print($OQ_UI2DKeyboard/OQ_UI2DCanvas_TextInput/TextEdit)
-	#for child in $OQ_UI2DKeyboard/OQ_UI2DCanvas_TextInput.get_children():
-	#	print(child.name)
 
 func hide_scores():
 	$hinames.visible = false
@@ -74,6 +71,7 @@ func _on_OQ_UI2DKeyboard_text_input_enter(text):
 		if scoredata[i][1] < score:
 			scoredata.insert(i,data)
 			inserted = true
+			break
 	if len(scoredata) >= topkept:
 		scoredata.remove(topkept)
 	if not inserted:

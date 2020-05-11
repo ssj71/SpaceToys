@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://ship2.tscn" type="PackedScene" id=1]
 [ext_resource path="res://OQ_Toolkit/OQ_UI2D/OQ_UI2DLabel.tscn" type="PackedScene" id=2]
@@ -19,8 +19,6 @@
 [ext_resource path="res://firstrun.gd" type="Script" id=17]
 [ext_resource path="res://scorekeeper.tscn" type="PackedScene" id=18]
 [ext_resource path="res://OQ_Toolkit/OQ_ARVRController/Feature_UIRayCast.tscn" type="PackedScene" id=19]
-[ext_resource path="res://proximitymine.tscn" type="PackedScene" id=20]
-[ext_resource path="res://ship2.gd" type="Script" id=21]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.709804, 0, 0, 0 )
@@ -69,7 +67,6 @@ transform = Transform( 1, 1.49012e-08, 0, 0, 1, -5.96046e-08, 0, 0, 1, 0.149069,
 
 [node name="ship2" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.4 )
-script = ExtResource( 21 )
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( 9 )]
 
@@ -98,8 +95,22 @@ transparent = true
 [node name="MineFactory" type="Spatial" parent="."]
 script = ExtResource( 15 )
 
-[node name="ProximityMine" parent="MineFactory" instance=ExtResource( 20 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99184, 0.363979 )
+[node name="activebullets" type="Spatial" parent="MineFactory"]
+
+[node name="activemines" type="Spatial" parent="MineFactory"]
+
+[node name="pools" type="Spatial" parent="MineFactory"]
+visible = false
+
+[node name="prox" type="Spatial" parent="MineFactory/pools"]
+
+[node name="plas" type="Spatial" parent="MineFactory/pools"]
+
+[node name="lasr" type="Spatial" parent="MineFactory/pools"]
+
+[node name="nuke" type="Spatial" parent="MineFactory/pools"]
+
+[node name="bullet" type="Spatial" parent="MineFactory/pools"]
 
 [node name="newlevel" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )

@@ -4,11 +4,11 @@ extends StaticBody
 
 # Declare member variables here. Examples:
 var t = 0.0
-var exploded = false
 var blowing = false
-const tex = .25
-const tdis = 2
+const tex = .25 #expand
+const tdis = 2 #disperse
 const exspeed = .7/tex
+onready var pool = get_parent()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,7 +16,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func process(delta):
 	if blowing:
 		t += delta
 		if t < tex:
@@ -34,9 +34,19 @@ func _process(delta):
 					body.boom()
 				elif name.match("*ine*"):
 					body.annihilate()
-		elif not $booooooom.playing:
-			queue_free()
-		
+		elif not $boooom.playing:
+			$"..".remove_child(self)
+			pool.add_child(self)
+			reset()
+
+func reset():
+	blowing = false
+	$mine2.visible = true
+	$explosion.visible = false
+	$explosion/CSGSphere.radius = .1
+	$explosion/CollisionShape.shape.radius = .1
+	$explosion/CSGSphere.material.albedo_color.a = 1.0
+	$explosion/CSGSphere.material.emission_energy = 2
 
 	
 		
@@ -49,9 +59,9 @@ func boom():
 func annihilate():
 	if not blowing:
 		blowing = true
-		$booooooom.play()
+		$boooom.play()
 		$explosion.visible = true
-		$"../../scorekeeper".add_score(100)
+		$"../../../scorekeeper".add_score(100)
 		return true
 	return false
 
