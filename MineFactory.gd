@@ -5,7 +5,7 @@ extends Spatial
 # var a = 2
 # var b = "text"
 var start = true
-var level = 5
+var level = 0
 onready var top = $"../walls".height
 onready var rad = $"../walls".radius
 const buffer = .1
@@ -81,6 +81,8 @@ func _process(delta):
 			if c.collider.get_name() == "walls":
 				#TODO: will this mess with the loop?
 				$activebullets.remove_child(b)
+				b.get_node("CollisionShape").disabled = true
+				b.global_transform.origin = Vector3(0,-.25,0)
 				$pools/bullet.add_child(b)
 			elif c.collider.get_name() == "ship2":
 				c.collider.boom()
@@ -100,6 +102,7 @@ func fire(from):
 	else:
 		b = bullet.instance()
 	b.global_transform.origin = from
+	b.get_node("CollisionShape").disabled = false
 	if ship:
 		b.dir = 	(ship.global_transform.origin - from).normalized()
 		$activebullets.add_child(b)
@@ -161,6 +164,7 @@ func produce(n):
 		else:
 			m = prox.instance()
 		place(m,i)
+		m.get_node("CollisionShape").disabled = false
 		m.rotation = Vector3(0,0,0)
 		m.angular_velocity = Vector3(0,0,0)
 		m.linear_velocity = Vector3(0,0,0)
@@ -179,6 +183,7 @@ func produce(n):
 			m = plas.instance()
 		m.t = rng.randf_range(0,m.period)
 		place(m,nprox + i)
+		m.get_node("CollisionShape").disabled = false
 		$activemines.add_child(m)
 		m.pool = p
 		
@@ -195,6 +200,7 @@ func produce(n):
 		m.t = rng.randf_range(0,m.period)
 		twist(m)
 		place(m,nprox + nplas + i)
+		m.get_node("CollisionShape").disabled = false
 		$activemines.add_child(m)
 		m.pool = p
 	
@@ -212,6 +218,7 @@ func produce(n):
 		else:
 			m = nuke.instance()
 		place(m,nprox + nplas + nlasr + i)
+		m.get_node("CollisionShape").disabled = false
 		$activemines.add_child(m)
 		m.pool = p
 			
@@ -225,5 +232,6 @@ func produce(n):
 			m = plas.instance()
 		m.t = rng.randf_range(0,m.period)
 		place(m,nprox + i)
+		m.get_node("CollisionShape").disabled = false
 		$activemines.add_child(m)
 		m.pool = p

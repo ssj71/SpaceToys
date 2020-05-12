@@ -19,14 +19,11 @@ func grab_init(node, grab_type: int) -> void:
 func _on_OQ_RightController_button_pressed(button):
 	if button == 15:
 		$Crosshair.shoot()
-		
-func _on_OQ_RightController_button_released(button):
-	pass
-	
+
 func _on_OQ_LeftController_button_pressed(button):
 	if button == 15:
 		$Crosshair.shoot()
-		
+
 func _on_ship2_body_entered(body):
 	var p = body.get_parent()
 	var name = body.get_name()

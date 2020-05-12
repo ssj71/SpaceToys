@@ -36,8 +36,6 @@ func process(delta):
 			$minelasers.extend(gspeed*(t-trotate))
 	elif t >= period:
 		$minelasers.extend(0)
-		#$laserx.scale[2] = 1
-		#$laserz.scale[2] = 1
 		rotated45 = not rotated45
 		t -= period #if delta is ever greater than period this could be problematic
 		first = false
@@ -47,16 +45,16 @@ func process(delta):
 	$minelasers.scanforship()
 	if exploded and not $Particles.emitting and not $boom.playing:
 		$"..".remove_child(self)
-		pool.add_child(self)
 		exploded = false
 		$minelasers.extend(0)
+		$minelasers.visible = true
 		first = true
 		life = startlife
-		#rotation = Vector3(0,0,0)
-		
+		$CollisionShape.disabled = true
+		global_transform.origin = Vector3(0,-.25,0)
+		pool.add_child(self)
 
-	
-		
+
 func hit(damage):
 	life -= damage
 	var ret = false
@@ -66,7 +64,7 @@ func hit(damage):
 	else:
 		$hurt.play()
 	return ret
-		
+
 func boom():
 	if not exploded:
 		$boom.play()

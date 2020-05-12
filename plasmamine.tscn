@@ -54,6 +54,7 @@ transform = Transform( 0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0.0296718, 0 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="boom" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 3 )

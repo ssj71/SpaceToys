@@ -60,6 +60,7 @@ transform = Transform( 0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, -0.0059369, 0 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="PromityDetection" type="Area" parent="."]
 collision_layer = 0

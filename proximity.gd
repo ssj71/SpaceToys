@@ -33,9 +33,11 @@ func process(delta):
 		self.add_central_force(Vector3(0,0,0))
 	if exploded and not $Particles.emitting and not $boom.playing:
 		$"..".remove_child(self)
-		pool.add_child(self)
 		exploded = false
 		life = 1
+		$CollisionShape.disabled = true
+		global_transform.origin = Vector3(0,-.25,0)
+		pool.add_child(self)
 
 func _on_ProximityMine_body_entered(body):
 	if body.get_name() == "walls":

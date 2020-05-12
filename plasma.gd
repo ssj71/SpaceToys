@@ -29,9 +29,11 @@ func process(delta):
 		t -= period #if delta is ever greater than period this could be problematic
 	if exploded and not $Particles.emitting and not $boom.playing:
 		$"..".remove_child(self)
-		pool.add_child(self)
 		exploded = false
 		life = startlife
+		$CollisionShape.disabled = true
+		global_transform.origin = Vector3(0,-.25,0)
+		pool.add_child(self)
 		
 		
 func hit(damage):

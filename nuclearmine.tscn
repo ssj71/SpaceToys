@@ -30,6 +30,7 @@ transform = Transform( 0.0499998, 0.000155714, 3.48308e-06, -0.00015571, 0.04999
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="explosion" type="Area" parent="."]
 visible = false

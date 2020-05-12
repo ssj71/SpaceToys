@@ -22,7 +22,6 @@ func process(delta):
 		if t < tex:
 			$explosion/CSGSphere.radius = .1+t*exspeed
 			$explosion/CollisionShape.shape.radius = .1+t*exspeed
-			$mine2.visible = false
 		elif t < tex+tdis:
 			var v = 1.0-(t-tex)/tdis
 			$explosion/CSGSphere.material.albedo_color.a = v
@@ -36,17 +35,20 @@ func process(delta):
 					body.annihilate()
 		elif not $boooom.playing:
 			$"..".remove_child(self)
-			pool.add_child(self)
 			reset()
+			pool.add_child(self)
 
 func reset():
 	blowing = false
+	t = 0
 	$mine2.visible = true
 	$explosion.visible = false
 	$explosion/CSGSphere.radius = .1
 	$explosion/CollisionShape.shape.radius = .1
 	$explosion/CSGSphere.material.albedo_color.a = 1.0
 	$explosion/CSGSphere.material.emission_energy = 2
+	$CollisionShape.disabled = true
+	global_transform.origin = Vector3(0,-.25,0)
 
 	
 		
@@ -61,6 +63,7 @@ func annihilate():
 		blowing = true
 		$boooom.play()
 		$explosion.visible = true
+		$mine2.visible = false
 		$"../../../scorekeeper".add_score(100)
 		return true
 	return false
