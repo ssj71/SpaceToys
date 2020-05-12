@@ -63,6 +63,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0662666 )
 [node name="pew" type="AudioStreamPlayer3D" parent="."]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0, 0, 0 )
 stream = ExtResource( 4 )
+unit_size = 0.8
 
 [node name="boom" type="AudioStreamPlayer3D" parent="."]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0, 0, 0 )
@@ -70,6 +71,7 @@ stream = ExtResource( 5 )
 
 [node name="bonus" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 6 )
+unit_size = 0.8
 
 [node name="Particles" type="Particles" parent="."]
 emitting = false
