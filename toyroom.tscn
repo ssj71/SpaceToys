@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://ship2.tscn" type="PackedScene" id=1]
 [ext_resource path="res://OQ_Toolkit/OQ_UI2D/OQ_UI2DLabel.tscn" type="PackedScene" id=2]
@@ -22,7 +22,6 @@
 [ext_resource path="res://soundtrack.gd" type="Script" id=20]
 [ext_resource path="res://Assets/soundtrack/normalized/electronic-senses-anemona.ogg" type="AudioStream" id=21]
 [ext_resource path="res://Assets/soundtrack/normalized/electronic-senses-127.ogg" type="AudioStream" id=22]
-[ext_resource path="res://Assets/soundtrack/normalized/fsm-team-escp-quasarise.ogg" type="AudioStream" id=23]
 [ext_resource path="res://Assets/soundtrack/normalized/lesion-x-a-journey-through-the-universe.ogg" type="AudioStream" id=24]
 [ext_resource path="res://Assets/soundtrack/normalized/bettogh-orbital-strike.ogg" type="AudioStream" id=25]
 [ext_resource path="res://Assets/soundtrack/normalized/fsm-team-escp-abyss.ogg" type="AudioStream" id=26]
@@ -145,7 +144,7 @@ visible = false
 
 [node name="newlevel" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
-volume_db = -12.0
+volume_db = -11.0
 
 [node name="soundtrack" type="Spatial" parent="."]
 script = ExtResource( 20 )
@@ -190,21 +189,18 @@ stream = ExtResource( 31 )
 stream = ExtResource( 26 )
 
 [node name="13" type="AudioStreamPlayer" parent="soundtrack"]
-stream = ExtResource( 23 )
-
-[node name="14" type="AudioStreamPlayer" parent="soundtrack"]
 stream = ExtResource( 36 )
 
-[node name="15" type="AudioStreamPlayer" parent="soundtrack"]
+[node name="14" type="AudioStreamPlayer" parent="soundtrack"]
 stream = ExtResource( 34 )
 
-[node name="16" type="AudioStreamPlayer" parent="soundtrack"]
+[node name="15" type="AudioStreamPlayer" parent="soundtrack"]
 stream = ExtResource( 24 )
 
-[node name="17" type="AudioStreamPlayer" parent="soundtrack"]
+[node name="16" type="AudioStreamPlayer" parent="soundtrack"]
 stream = ExtResource( 32 )
 
-[node name="18" type="AudioStreamPlayer" parent="soundtrack"]
+[node name="17" type="AudioStreamPlayer" parent="soundtrack"]
 stream = ExtResource( 30 )
 
 [node name="trackinfo" parent="soundtrack" instance=ExtResource( 2 )]
@@ -221,7 +217,7 @@ transparent = true
 
 [node name="firstrun" type="Spatial" parent="."]
 script = ExtResource( 17 )
-[connection signal="button_pressed" from="OQ_ARVROrigin/OQ_LeftController" to="soundtrack" method="_on_OQ_LeftController_button_pressed"]
 [connection signal="button_pressed" from="OQ_ARVROrigin/OQ_LeftController" to="ship2" method="_on_OQ_LeftController_button_pressed"]
+[connection signal="button_pressed" from="OQ_ARVROrigin/OQ_LeftController" to="soundtrack" method="_on_OQ_LeftController_button_pressed"]
 [connection signal="button_pressed" from="OQ_ARVROrigin/OQ_RightController" to="ship2" method="_on_OQ_RightController_button_pressed"]
 [connection signal="button_pressed" from="reset_button" to="." method="_on_reset_button_button_pressed"]

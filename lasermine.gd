@@ -51,6 +51,8 @@ func process(delta):
 		first = true
 		life = startlife
 		$CollisionShape.disabled = true
+		rotation = Vector3(0,0,0)
+		t = 0
 		global_transform.origin = Vector3(0,-.25,0)
 		pool.add_child(self)
 

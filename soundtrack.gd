@@ -100,13 +100,6 @@ Attribution 4.0 International (CC BY 4.0)
 https://creativecommons.org/licenses/by/4.0/
 
 """,
-"""Quasarise by | e s c p
-https://escp-music.bandcamp.com
-Music promoted by https://www.free-stock-music.com
-Attribution 4.0 International (CC BY 4.0)
-https://creativecommons.org/licenses/by/4.0/
-
-""",
 """Sail Away by | e s c p
 https://escp-music.bandcamp.com
 Music promoted by https://www.free-stock-music.com
@@ -150,7 +143,7 @@ var track = -1
 func _ready():
 	randomize()
 	trackorder.shuffle()
-	var tracks = [$"0",$"1",$"2",$"3",$"4",$"5",$"6",$"7",$"8",$"9",$"10",$"11",$"12",$"13",$"14",$"15",$"16",$"17",$"18"]
+	var tracks = [$"0",$"1",$"2",$"3",$"4",$"5",$"6",$"7",$"8",$"9",$"10",$"11",$"12",$"13",$"14",$"15",$"16",$"17"]
 	for t in tracks:
 		t.connect("finished",self,"_on_track_finished")
 		t.volume_db = 1
