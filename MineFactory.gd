@@ -119,7 +119,7 @@ func tri(x, mn, mx, period):
 	
 func nextlevel():
 	level += 1
-	if(level == 1):
+	if(level == 2):
 		$"..".tut(3)
 	$"../newlevel".play()
 	produce(level)
@@ -151,7 +151,6 @@ func twist(mine):
 	mine.rotate_y(ninety*yr)
 
 func produce(n):
-	
 	var nprox = rng.randi_range(1,level)
 	if level == nuklevel:
 		nprox = 0

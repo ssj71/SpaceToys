@@ -31,6 +31,7 @@ func shoot():
 	var b = get_overlapping_bodies()
 	$"../pew".play()
 	var miss = true
+	var hit = 0
 	for body in b:
 		#$"../../../InfoLabel".set_label_text("boom")
 		#TODO: only hit the closest mine
@@ -38,22 +39,24 @@ func shoot():
 			if body.get_parent().get_name() == "activemines":
 				if body.hit(power):
 					$"..".room.find_node("scorekeeper").mine_cleared()
+					hit = 1
 				miss = false
-	streak += 1
+	streak += hit
 	if miss:
 		streak = 0
-	elif streak == 10:
-		$"..".room.bonus(1000,"Nice Shooting.")
-		$"../bonus".play()
-	elif streak == 25:
-		$"..".room.bonus(10000,"Great Shooting.")
-		$"../bonus".play()
-	elif streak == 50:
-		$"..".room.bonus(50000,"Amazing Shooting!")
-		$"../bonus".play()
-	elif streak == 100:
-		$"..".room.bonus(500000,"Incredible Shooting!")
-		$"../bonus".play()
+	elif hit:
+		if streak == 10:
+			$"..".room.bonus(1000,"Nice Shooting.")
+			$"../bonus".play()
+		elif streak == 25:
+			$"..".room.bonus(10000,"Great Shooting.")
+			$"../bonus".play()
+		elif streak == 50:
+			$"..".room.bonus(50000,"Amazing Shooting!")
+			$"../bonus".play()
+		elif streak == 100:
+			$"..".room.bonus(500000,"Incredible Shooting!")
+			$"../bonus".play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
