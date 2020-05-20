@@ -26,7 +26,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="SpaceToy"
+config/name="SpaceToys"
 run/main_scene="res://GameMain.tscn"
 config/icon="res://icon.png"
 
