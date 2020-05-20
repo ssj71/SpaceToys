@@ -8,7 +8,7 @@
 radius = 0.043597
 
 [sub_resource type="SphereShape" id=2]
-radius = 0.1
+radius = 0.8
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_transparent = true
@@ -34,6 +34,8 @@ disabled = true
 
 [node name="explosion" type="Area" parent="."]
 visible = false
+priority = 1.0
+monitorable = false
 collision_layer = 0
 collision_mask = 2
 

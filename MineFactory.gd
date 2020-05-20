@@ -34,21 +34,25 @@ func _ready():
 	$activemines.add_child(a)
 	a.pool = $pools/prox
 	a.boom()
+	
 	a = plas.instance()
 	a.t = a.period
 	$activemines.add_child(a)
 	a.pool = $pools/plas
 	a.boom()
+	
 	a = lasr.instance()
 	a.translate(Vector3(0,1,0))
 	$activemines.add_child(a)
 	a.pool = $pools/lasr
 	a.boom()
+	
 	a = nuke.instance()
 	a.translate(Vector3(0,1,-4))
 	$activemines.add_child(a)
 	a.pool = $pools/nuke
 	a.boom()
+	
 	#the factory does the glow animation on the bullets
 	#so we grab the material here
 	a = bullet.instance()

@@ -21,22 +21,25 @@ func process(delta):
 		t += delta
 		if t < tex:
 			$explosion/CSGSphere.radius = .1+t*exspeed
-			$explosion/CollisionShape.shape.radius = .1+t*exspeed
 		elif t < tex+tdis:
 			var v = 1.0-(t-tex)/tdis
 			$explosion/CSGSphere.material.albedo_color.a = v
 			$explosion/CSGSphere.material.emission_energy = 2*v
-			var b = $explosion.get_overlapping_bodies()
-			for body in b:
-				var name = body.get_name()
-				if name == "ship2":
-					body.boom()
-				elif name.match("*ine*"):
-					body.annihilate()
+			scan_for_ship()
 		elif not $boooom.playing:
+			scan_for_ship()
 			$"..".remove_child(self)
 			reset()
 			pool.add_child(self)
+
+func scan_for_ship():
+	var b = $explosion.get_overlapping_bodies()
+	for body in b:
+		var name = body.get_name()
+		if name.match("ship*"):
+			body.boom()
+		elif name.match("*ine*"):
+			body.annihilate()
 
 func reset():
 	blowing = false
@@ -44,7 +47,6 @@ func reset():
 	$mine2.visible = true
 	$explosion.visible = false
 	$explosion/CSGSphere.radius = .1
-	$explosion/CollisionShape.shape.radius = .1
 	$explosion/CSGSphere.material.albedo_color.a = 1.0
 	$explosion/CSGSphere.material.emission_energy = 2
 	$CollisionShape.disabled = true

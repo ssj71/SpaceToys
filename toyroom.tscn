@@ -239,7 +239,7 @@ collision_mask = 2
 height = 2.25
 sides = 12
 material = SubResource( 1 )
-[connection signal="button_pressed" from="OQ_ARVROrigin/OQ_LeftController" to="gamemode/ship2" method="_on_OQ_LeftController_button_pressed"]
 [connection signal="button_pressed" from="OQ_ARVROrigin/OQ_LeftController" to="soundtrack" method="_on_OQ_LeftController_button_pressed"]
+[connection signal="button_pressed" from="OQ_ARVROrigin/OQ_LeftController" to="gamemode/ship2" method="_on_OQ_LeftController_button_pressed"]
 [connection signal="button_pressed" from="OQ_ARVROrigin/OQ_RightController" to="gamemode/ship2" method="_on_OQ_RightController_button_pressed"]
 [connection signal="button_pressed" from="reset_button" to="." method="_on_reset_button_button_pressed"]
