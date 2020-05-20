@@ -62,7 +62,7 @@ func boom():
 func annihilate():
 	if not exploded:
 		exploded = true
-		$"../../../scorekeeper".add_score(100)
+		$"../../../gamemode/scorekeeper".add_score(100)
 	
 func hit_ship():
 	exploded = true

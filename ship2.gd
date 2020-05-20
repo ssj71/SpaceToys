@@ -1,6 +1,8 @@
 extends "res://OQ_Toolkit/OQ_Classes/OQClass_GrabbableRigidBody.gd"
 
-onready var room = get_parent()
+onready var room = $"../.."
+var lenable = false
+var renable = false
 
 	
 func grab_init(node, grab_type: int) -> void:
@@ -13,15 +15,23 @@ func grab_init(node, grab_type: int) -> void:
 	can_sleep = false;
 	
 	room.tut(1)
-	$Crosshair.enabled = true
-	$Particles.visibile = true
+	var grabber = node.get_parent().get_name()
+	if grabber.match("*eft*"):
+		lenable = true
+		renable = false
+	else:
+		lenable = false
+		renable = true
+		
+	collision_layer = 0x0f
+	sleeping = false
 
 func _on_OQ_RightController_button_pressed(button):
-	if button == 15:
+	if renable and button == 15:
 		$Crosshair.shoot()
 
 func _on_OQ_LeftController_button_pressed(button):
-	if button == 15:
+	if lenable and button == 15:
 		$Crosshair.shoot()
 
 func _on_ship2_body_entered(body):
@@ -48,14 +58,30 @@ func boom():
 		$"..".release()
 	
 func _process(delta):
-	if dead and not $Particles.emitting and not $boom.playing:
-		if is_grabbed:
-			$"..".release()
-		room.get_node("scorekeeper").show_scores()
-		room.get_node("MineFactory").ship = null
-		queue_free()
+	if dead and not $Particles.emitting and not $boom.playing and visible:
+		kill()
+		$"..".ship_down()
+		
+func birth(place = Vector3(0,1,-.4)):
+	dead = false
+	global_transform.origin = place
+	rotation = Vector3(0,atan2(-place[0],-place[2]),0)
+	visible = true
+	$fighterjet2.visible = true
+	lenable = false
+	renable = false
+	
+func kill():
+	if is_grabbed:
+		$"..".release()
+	lenable = false
+	renable = false
+	collision_layer = 0x01
+	sleeping = true
+	visible = false
+	global_transform.origin = Vector3(0,-.1,0)
+	
 
 func _ready():
 	#$Particles.visible = false
 	$Particles.restart()
-	room.get_node("scorekeeper").hide_scores()

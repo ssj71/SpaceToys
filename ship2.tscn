@@ -48,6 +48,7 @@ collision_layer = 15
 collision_mask = 3
 contacts_reported = 1
 contact_monitor = true
+sleeping = true
 script = ExtResource( 1 )
 
 [node name="fighterjet2" parent="." instance=ExtResource( 3 )]

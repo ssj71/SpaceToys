@@ -12,8 +12,12 @@ var scoredata
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	hide_scores()
 
+func reset():
+	score = 0
+	minescleared = 0
+	hide_scores()
 
 func add_score(plus):
 	score += plus
@@ -25,7 +29,8 @@ func mine_cleared():
 func show_scores():
 	scoredata = load_file_data(scorefile)
 	if scoredata:
-		if len(scoredata) < topkept or scoredata[topkept][1] < score:
+		$"../..".show_prompt(str(scoredata),10)
+		if len(scoredata) < topkept or scoredata[-1][1] < score:
 			newhigh()
 	else:
 		scoredata = []
@@ -34,21 +39,23 @@ func show_scores():
 	$hiscores.visible = true
 	$hiextra.visible = true
 	$extra.visible = true
-	$extra.set_label_text("lvl %d, %d mines" % [$"../MineFactory".level, minescleared])
+	$extra.set_label_text("lvl %d, %d mines" % [$"../../MineFactory".level, minescleared])
 	print_scores()
 	
 func newhigh():
 	$OQ_UI2DKeyboard.visible = true
-	$"../OQ_ARVROrigin/OQ_RightController/Feature_UIRayCast".visible = true
+	$"../../OQ_ARVROrigin/OQ_RightController/Feature_UIRayCast".visible = true
 	$OQ_UI2DKeyboard.set_prompt("ace")
-	$"..".show_prompt("Enter name for new high score!",10)
+	$"../..".show_prompt("Enter name for new high score!",10)
 
 func hide_scores():
 	$hinames.visible = false
 	$hiscores.visible = false
 	$hiextra.visible = false
 	$extra.visible = false
-	
+	$OQ_UI2DKeyboard.visible = false
+	$"../../OQ_ARVROrigin/OQ_RightController/Feature_UIRayCast".visible = false
+
 func print_scores():
 	var nms = "Hi-Scores:\n"
 	var scr = "\n"
@@ -63,9 +70,9 @@ func print_scores():
 	
 func _on_OQ_UI2DKeyboard_text_input_enter(text):
 	$OQ_UI2DKeyboard.visible = false
-	$"../InfoLabel".visible = false
-	$"../OQ_ARVROrigin/OQ_RightController/Feature_UIRayCast".visible = false
-	var data = [text,score,$"../MineFactory".level,minescleared]
+	$"../../InfoLabel".visible = false
+	$"../../OQ_ARVROrigin/OQ_RightController/Feature_UIRayCast".visible = false
+	var data = [text,score,$"../../MineFactory".level,minescleared]
 	var inserted = false
 	for i in range(len(scoredata)):
 		if scoredata[i][1] < score:
@@ -78,7 +85,6 @@ func _on_OQ_UI2DKeyboard_text_input_enter(text):
 		scoredata.append(data)
 	#scoredata = [] #WARNING uncommenting this line deletes all scores!
 	save_file_data(scorefile,scoredata)
-	print("data",scoredata)
 	print_scores()
 		
 func save_file_data(path, data):

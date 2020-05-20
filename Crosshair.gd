@@ -9,7 +9,6 @@ const tau = .1
 const alph = 0
 const autoshot = false #for debugging only
 var timer = 0 
-var enabled = false
 var streak = 0
 var power = 2
 
@@ -18,12 +17,8 @@ var power = 2
 func _ready():
 	$laser.radius = rad
 	$laser.material.albedo_color.a = alph
-	if(autoshot):
-		enabled = true
 
 func shoot():
-	if not enabled:
-		return
 	$"..".room.tut(2)
 	$laser.radius = .007
 	$laser.material.albedo_color.a = 255

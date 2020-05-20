@@ -6,8 +6,8 @@ extends Spatial
 # var b = "text"
 var start = true
 var level = 0
-onready var top = $"../walls".height
-onready var rad = $"../walls".radius
+onready var top = $"../gamemode/walls".height
+onready var rad = $"../gamemode/walls".radius
 const buffer = .1
 const nuklevel = 8
 var rng
@@ -19,7 +19,7 @@ var bullet = preload("res://bullet.tscn")
 var bulletmaterial
 var dir = Vector3(0,0,0)
 const bspeed = .08
-onready var ship = $"../ship2"
+onready var ship = $"../gamemode/ship2"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -106,7 +106,19 @@ func fire(from):
 	if ship:
 		b.dir = 	(ship.global_transform.origin - from).normalized()
 		$activebullets.add_child(b)
+		
 
+func clearall():
+	for m in $activemines.get_children():
+		m.annihilate()
+	level = 0
+
+func nextlevel():
+	level += 1
+	if(level == 2):
+		$"..".tut(3)
+	$"../gamemode/newlevel".play()
+	produce(level)
 
 func saw(x, mn, mx, period):
 	var rng = mx - mn
@@ -116,13 +128,7 @@ func tri(x, mn, mx, period):
 	var rng = mx - mn
 	var half = period/2.0
 	return abs(fmod(x,period)-half)/half*rng + mn
-	
-func nextlevel():
-	level += 1
-	if(level == 2):
-		$"..".tut(3)
-	$"../newlevel".play()
-	produce(level)
+
 
 var t = 0.0
 const glowdecimate = 10 #number of frames to skip

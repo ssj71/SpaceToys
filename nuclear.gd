@@ -64,7 +64,7 @@ func annihilate():
 		$boooom.play()
 		$explosion.visible = true
 		$mine2.visible = false
-		$"../../../scorekeeper".add_score(100)
+		$"../../../gamemode/scorekeeper".add_score(100)
 		return true
 	return false
 
