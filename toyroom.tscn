@@ -1,6 +1,6 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=36 format=2]
 
-[ext_resource path="res://ship2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://gamemodeshoot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://OQ_Toolkit/OQ_UI2D/OQ_UI2DLabel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://OQ_Toolkit/OQ_ARVRController/Feature_ControllerModel_Right.tscn" type="PackedScene" id=3]
 [ext_resource path="res://OQ_Toolkit/OQ_ARVRController/Feature_ControllerModel_Left.tscn" type="PackedScene" id=4]
@@ -12,17 +12,13 @@
 [ext_resource path="res://OQ_Toolkit/OQ_ARVROrigin.tscn" type="PackedScene" id=10]
 [ext_resource path="res://OQ_Toolkit/OQ_LeftController.tscn" type="PackedScene" id=11]
 [ext_resource path="res://toyroom.gd" type="Script" id=12]
-[ext_resource path="res://floor.tscn" type="PackedScene" id=13]
 [ext_resource path="res://OQ_Toolkit/OQ_Interactables/OQ_ButtonPressable.tscn" type="PackedScene" id=14]
 [ext_resource path="res://MineFactory.gd" type="Script" id=15]
-[ext_resource path="res://Assets/sfx/beam.wav" type="AudioStream" id=16]
 [ext_resource path="res://firstrun.gd" type="Script" id=17]
-[ext_resource path="res://scorekeeper.tscn" type="PackedScene" id=18]
 [ext_resource path="res://OQ_Toolkit/OQ_ARVRController/Feature_UIRayCast.tscn" type="PackedScene" id=19]
 [ext_resource path="res://soundtrack.gd" type="Script" id=20]
 [ext_resource path="res://Assets/soundtrack/normalized/electronic-senses-anemona.ogg" type="AudioStream" id=21]
 [ext_resource path="res://Assets/soundtrack/normalized/electronic-senses-127.ogg" type="AudioStream" id=22]
-[ext_resource path="res://gamemodeshoot.gd" type="Script" id=23]
 [ext_resource path="res://Assets/soundtrack/normalized/lesion-x-a-journey-through-the-universe.ogg" type="AudioStream" id=24]
 [ext_resource path="res://Assets/soundtrack/normalized/bettogh-orbital-strike.ogg" type="AudioStream" id=25]
 [ext_resource path="res://Assets/soundtrack/normalized/fsm-team-escp-abyss.ogg" type="AudioStream" id=26]
@@ -39,9 +35,6 @@
 [ext_resource path="res://Assets/soundtrack/normalized/electronic-senses-lost-tapes.ogg" type="AudioStream" id=37]
 [ext_resource path="res://Assets/soundtrack/normalized/aderin-will-i.ogg" type="AudioStream" id=38]
 [ext_resource path="res://Assets/soundtrack/normalized/bettogh-third-section.ogg" type="AudioStream" id=39]
-
-[sub_resource type="SpatialMaterial" id=1]
-albedo_color = Color( 0.709804, 0, 0, 0 )
 
 [node name="toyroom" type="Spatial"]
 script = ExtResource( 12 )
@@ -77,14 +70,7 @@ visible = false
 [node name="InfoLabel" parent="." instance=ExtResource( 2 )]
 transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 0, 2, -1.99021 )
 text = "Grab the ship!"
-margin = 16
-billboard = false
-depth_test = true
-resize_mode = 0
-font_size_multiplier = 1.0
-font_color = Color( 1, 1, 1, 1 )
 background_color = Color( 0.00392157, 0, 0.392157, 1 )
-transparent = false
 
 [node name="reset_button" parent="." instance=ExtResource( 14 )]
 transform = Transform( 1, 1.49012e-08, 0, 0, 1, -5.96046e-08, 0, 0, 1, 0.149069, 1.16851, -1.20991 )
@@ -93,22 +79,12 @@ visible = false
 [node name="label" parent="reset_button" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0540727, 0 )
 text = "reset"
-margin = 16
-billboard = false
-depth_test = true
-resize_mode = 0
-font_size_multiplier = 1.0
-font_color = Color( 1, 1, 1, 1 )
 background_color = Color( 0.00392157, 0, 0.392157, 1 )
-transparent = false
 
 [node name="title" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -18 )
 text = "Space Toys"
 margin = 6
-billboard = false
-depth_test = true
-resize_mode = 0
 font_size_multiplier = 200.0
 font_color = Color( 0.960784, 0.137255, 0.00392157, 1 )
 background_color = Color( 0, 0, 0, 0 )
@@ -177,10 +153,6 @@ stream = ExtResource( 30 )
 [node name="trackinfo" parent="soundtrack" instance=ExtResource( 2 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, 0 )
 text = "Best Track Ever"
-margin = 16
-billboard = false
-depth_test = true
-resize_mode = 0
 font_size_multiplier = 2.0
 font_color = Color( 0.00392157, 0, 0.392157, 1 )
 background_color = Color( 0, 0, 0, 0 )
@@ -209,37 +181,6 @@ visible = false
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( 9 )]
 
-[node name="gamemode" type="Spatial" parent="."]
-script = ExtResource( 23 )
-
-[node name="newlevel" type="AudioStreamPlayer" parent="gamemode"]
-stream = ExtResource( 16 )
-volume_db = -11.0
-
-[node name="ship2" parent="gamemode" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.4 )
-visible = false
-
-[node name="ship1" parent="gamemode" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0 )
-visible = false
-
-[node name="floor" parent="gamemode" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00640678, 0.0592887, -0.0110445 )
-
-[node name="scorekeeper" parent="gamemode" instance=ExtResource( 18 )]
-
-[node name="walls" type="CSGCylinder" parent="gamemode"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.124, 0 )
-visible = false
-calculate_tangents = false
-use_collision = true
-collision_layer = 6
-collision_mask = 2
-height = 2.25
-sides = 12
-material = SubResource( 1 )
+[node name="gamemode" parent="." instance=ExtResource( 1 )]
 [connection signal="button_pressed" from="OQ_ARVROrigin/OQ_LeftController" to="soundtrack" method="_on_OQ_LeftController_button_pressed"]
-[connection signal="button_pressed" from="OQ_ARVROrigin/OQ_LeftController" to="gamemode/ship2" method="_on_OQ_LeftController_button_pressed"]
-[connection signal="button_pressed" from="OQ_ARVROrigin/OQ_RightController" to="gamemode/ship2" method="_on_OQ_RightController_button_pressed"]
 [connection signal="button_pressed" from="reset_button" to="." method="_on_reset_button_button_pressed"]

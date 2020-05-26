@@ -53,4 +53,3 @@ ogg_vorbis={
 [rendering]
 
 vram_compression/import_etc=true
-environment/default_environment="res://default_env.tres"

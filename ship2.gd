@@ -15,13 +15,15 @@ func grab_init(node, grab_type: int) -> void:
 	can_sleep = false;
 	
 	room.tut(1)
-	var grabber = node.get_parent().get_name()
-	if grabber.match("*eft*"):
+	var grabber = node.get_parent()
+	if grabber.get_name().match("*eft*"):
 		lenable = true
 		renable = false
+		grabber.connect("button_pressed",self,"_on_OQ_LeftController_button_pressed")
 	else:
 		lenable = false
 		renable = true
+		grabber.connect("button_pressed",self,"_on_OQ_RightController_button_pressed")
 		
 	collision_layer = 0x0f
 	sleeping = false
