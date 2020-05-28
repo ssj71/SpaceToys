@@ -19,7 +19,7 @@ var bullet = preload("res://bullet.tscn")
 var bulletmaterial
 var dir = Vector3(0,0,0)
 const bspeed = .08
-onready var ship = $"../gamemode/ship2"
+var ship #this must be set by the gamemode
 
 
 # Called when the node enters the scene tree for the first time.
@@ -125,13 +125,13 @@ func nextlevel():
 	produce(level)
 
 func saw(x, mn, mx, period):
-	var rng = mx - mn
-	return fmod(x,period)/period*rng + mn
+	var rnge = mx - mn
+	return fmod(x,period)/period*rnge + mn
 	
 func tri(x, mn, mx, period):
-	var rng = mx - mn
+	var rnge = mx - mn
 	var half = period/2.0
-	return abs(fmod(x,period)-half)/half*rng + mn
+	return abs(fmod(x,period)-half)/half*rnge + mn
 
 
 var t = 0.0

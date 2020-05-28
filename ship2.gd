@@ -59,7 +59,7 @@ func boom():
 	if is_grabbed:
 		$"..".release()
 	
-func _process(delta):
+func _process(_delta):
 	if dead and not $Particles.emitting and not $boom.playing and visible:
 		kill()
 		$"..".ship_down()

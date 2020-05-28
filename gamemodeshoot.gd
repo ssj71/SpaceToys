@@ -4,18 +4,31 @@ const mode = "shoot"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var s1 = $"ship2"
-onready var s2 = $"ship1"
+var s1
+var s2
+var shiptype = "classic" #rc or classic
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	s1.birth()
+	if shiptype == "classic":
+		var ship = load("ship2.tscn")
+		s1 = ship.instance()
+		s2 = ship.instance()
+		s2.set_name("ship1")
+		add_child(s1)
+		add_child(s2)
+		s2.kill()
+	else:
+		s1 = load("res://shipRC.tscn")
+		add_child(s1)
+		s2 = s1
+	reset()
 	pass # Replace with function body.
 
 func reset():
-	s1.birth()
 	s2.kill()
+	s1.birth()
 	$scorekeeper.reset()
 	$"../MineFactory".clearall()
 	$"../MineFactory".ship = s1
