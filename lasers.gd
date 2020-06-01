@@ -27,7 +27,7 @@ func scanforship():
 	var c = move_and_collide(Vector3(0,0,0))
 	if c:
 		translation = pos
-		if c.collider.get_name == "ship2":
+		if c.collider.get_name().match("ship*"):
 			c.collider.boom()
 
 func hit_ship():

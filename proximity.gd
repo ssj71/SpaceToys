@@ -40,9 +40,13 @@ func process(delta):
 		pool.add_child(self)
 
 func _on_ProximityMine_body_entered(body):
-	if body.get_name() == "walls":
+	var name = body.get_name()
+	if name == "walls":
 		self.angular_velocity = Vector3(0,0,0)
 		self.linear_velocity = Vector3(0,0,0)
+	elif name.match("*ship*"):
+		body.boom()
+		hit_ship()
 
 func hit(damage):
 	life -= damage

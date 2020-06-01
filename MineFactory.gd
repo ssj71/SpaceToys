@@ -82,13 +82,14 @@ func _process(delta):
 	for b in $activebullets.get_children():
 		var c = b.move_and_collide(bspeed*delta*b.dir)
 		if c:
-			if c.collider.get_name() == "walls":
+			var name = c.collider.get_name()
+			if name == "walls":
 				#TODO: will this mess with the loop?
 				$activebullets.remove_child(b)
 				b.get_node("CollisionShape").disabled = true
 				b.global_transform.origin = Vector3(0,-.25,0)
 				$pools/bullet.add_child(b)
-			elif c.collider.get_name() == "ship2":
+			elif name.match("*ship*"):
 				c.collider.boom()
 
 	if $activemines.get_child_count():
@@ -151,7 +152,7 @@ func place(mine, i=0):
 	var ang = rng.randf_range(0,2*PI)
 	var dist = rng.randf_range(0,rad-buffer)
 	mine.translation = Vector3(dist*cos(ang), z, dist*sin(ang))
-	#mine.translation = Vector3(0,0,.1*i)
+	#mine.translation = Vector3(0,1,.1*i)
 	
 func twist(mine):
 	var xr = rng.randi_range(-1,2)
@@ -161,11 +162,12 @@ func twist(mine):
 	mine.rotate_y(ninety*yr)
 
 func produce(n):
-	var nprox = rng.randi_range(1,level)
-	if level == nuklevel:
-		nprox = 0
 	var m
-	var 	p = $pools/prox
+	var nprox = rng.randi_range(1,n)
+	if n == nuklevel:
+		nprox = 0
+	#nprox = 0 #uncomment to disable proximity mines
+	var p = $pools/prox
 	for i in range(nprox):
 		if p.get_child_count():
 			m = p.get_child(0)
@@ -180,9 +182,10 @@ func produce(n):
 		$activemines.add_child(m)
 		m.pool = p
 		
-	var nplas = rng.randi_range(1,level)
-	if level < 2 or level == nuklevel:
+	var nplas = rng.randi_range(1,n)
+	if n < 2 or n == nuklevel:
 		nplas = 0
+	#nplas = 0 #uncomment to disable plasma mines
 	p = $pools/plas
 	for i in range(nplas):
 		if p.get_child_count():
@@ -196,8 +199,8 @@ func produce(n):
 		$activemines.add_child(m)
 		m.pool = p
 		
-	var nlasr = rng.randi_range(1,level)
-	if level < 4 or level == nuklevel:
+	var nlasr = rng.randi_range(1,n)
+	if n < 4 or n == nuklevel:
 		nlasr = 0
 	p = $pools/lasr
 	for i in range(nlasr):
@@ -214,9 +217,9 @@ func produce(n):
 		m.pool = p
 	
 	var nnuk = rng.randi_range(0,3)
-	if level <= nuklevel:
+	if n <= nuklevel:
 		nnuk = 0
-		if level == nuklevel:
+		if n == nuklevel:
 			nnuk = 1
 			nprox = nuklevel #fake like the level is full
 	p = $pools/nuke
@@ -233,7 +236,7 @@ func produce(n):
 			
 	#fill the rest in with plasmamines if needed
 	p = $pools/plas
-	for i in range(level-nplas-nprox-nlasr):
+	for i in range(n-nplas-nprox-nlasr):
 		if p.get_child_count():
 			m = p.get_child(0)
 			p.remove_child(m)

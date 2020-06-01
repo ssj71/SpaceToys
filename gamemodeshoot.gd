@@ -6,7 +6,7 @@ const mode = "shoot"
 # var b = "text"
 var s1
 var s2
-var shiptype = "classic" #rc or classic
+var shiptype = "rc" #"classic" #rc or classic
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +20,7 @@ func _ready():
 		add_child(s2)
 		s2.kill()
 	else:
-		s1 = load("res://shipRC.tscn")
+		s1 = load("res://shipRC.tscn").instance()
 		add_child(s1)
 		s2 = s1
 	reset()
