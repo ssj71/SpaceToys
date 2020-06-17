@@ -6,11 +6,10 @@ extends Spatial
 # var b = "text"
 var start = true
 var level = 0
-onready var top = $"../gamemode/walls".height
-onready var rad = $"../gamemode/walls".radius
-const buffer = .1
+#TODO: gotta get these numbers AFTER they choose mode
+
 const nuklevel = 8
-var rng
+var rng #this is shared with the gamemode
 var prox = preload("res://proximitymine.tscn")
 var plas = preload("res://plasmamine.tscn")
 var lasr = preload("res://lasermine.tscn")
@@ -19,62 +18,39 @@ var bullet = preload("res://bullet.tscn")
 var bulletmaterial
 var dir = Vector3(0,0,0)
 const bspeed = .08
-var ship #this must be set by the gamemode
+#these must be set by the gamemode
+var ship = null
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
+	var a
 	#$activemines.get_child(0).pool = $pools/prox #this is just when you have a test mine at init
-	#the first time a mine blows it takes a while to load the particles
-	#so we force an explosion on startup
-	var a = prox.instance()
-	a.translation = Vector3(0,3,0)
-	$activemines.add_child(a)
-	a.pool = $pools/prox
-	a.boom()
-	
-	a = plas.instance()
-	a.t = a.period
-	$activemines.add_child(a)
-	a.pool = $pools/plas
-	a.boom()
-	
-	a = lasr.instance()
-	a.translate(Vector3(0,1,0))
-	$activemines.add_child(a)
-	a.pool = $pools/lasr
-	a.boom()
-	
-	a = nuke.instance()
-	a.translate(Vector3(0,1,-4))
-	$activemines.add_child(a)
-	a.pool = $pools/nuke
-	a.boom()
-	
-	#the factory does the glow animation on the bullets
-	#so we grab the material here
-	a = bullet.instance()
-	#add_child(a)
-	bulletmaterial = a.find_node("CSGSphere").material
-	#remove_child(a)
-	$pools/bullet.add_child(a)
 	
 	#populate pools
-	for i in range(9):
+	for i in range(10):
 		a = prox.instance()
 		$pools/prox.add_child(a)
 		a = plas.instance()
 		$pools/plas.add_child(a)
 		a = lasr.instance()
 		$pools/lasr.add_child(a)
-	for i in range(2):
+	for i in range(3):
 		a = nuke.instance()
 		$pools/nuke.add_child(a)
-	for i in range(63):
+	for i in range(64):
 		a = bullet.instance()
 		$pools/bullet.add_child(a)
+	#the factory does the glow animation on the bullets
+	#so we grab the material here
+	bulletmaterial = a.find_node("CSGSphere").material
+	#fire bullet to make it compile that material
+	$pools/bullet.remove_child(a)
+	#b.get_node("CollisionShape").disabled = false
+	#b.dir = (ship.global_transform.origin - from).normalized()
+	$activebullets.add_child(a)
 
 func _process(delta):
 	bulletglow(delta)
@@ -95,8 +71,35 @@ func _process(delta):
 	if $activemines.get_child_count():
 		for m in $activemines.get_children():
 			m.process(delta)
-	else:
+	elif ship != null:
 		nextlevel()
+
+func preview():
+	#the first time a mine blows it takes a while to load the particles
+	#so we force an explosion on startup
+	var a = prox.instance()
+	a.translation = Vector3(0,3,0)
+	$activemines.add_child(a)
+	a.pool = $pools/prox
+	a.boom()
+	
+	a = plas.instance()
+	a.t = a.period #make it shoot
+	$activemines.add_child(a)
+	a.pool = $pools/plas
+	a.boom()
+	
+	a = lasr.instance()
+	a.translate(Vector3(0,1,0))
+	$activemines.add_child(a)
+	a.pool = $pools/lasr
+	a.boom()
+	
+	a = nuke.instance()
+	a.translate(Vector3(0,1,-4))
+	$activemines.add_child(a)
+	a.pool = $pools/nuke
+	a.boom()
 	
 
 func fire(from):
@@ -109,7 +112,7 @@ func fire(from):
 	b.global_transform.origin = from
 	b.get_node("CollisionShape").disabled = false
 	if ship:
-		b.dir = 	(ship.global_transform.origin - from).normalized()
+		b.dir = (ship.global_transform.origin - from).normalized()
 		$activebullets.add_child(b)
 		
 
@@ -134,11 +137,9 @@ func tri(x, mn, mx, period):
 	var half = period/2.0
 	return abs(fmod(x,period)-half)/half*rnge + mn
 
-
 var t = 0.0
 const glowdecimate = 10 #number of frames to skip
 var gc = 0
-
 func bulletglow(delta):
 	t += delta
 	gc += 1
