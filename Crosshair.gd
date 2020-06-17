@@ -33,7 +33,7 @@ func shoot():
 		if body.get_name().match("*ine*"):
 			if body.get_parent().get_name() == "activemines":
 				if body.hit(power):
-					$"..".room.find_node("scorekeeper").mine_cleared()
+					$"..".room.find_node("scorekeeper", true, false).mine_cleared()
 					hit = 1
 				miss = false
 	streak += hit
