@@ -15,7 +15,7 @@ func _ready():
 func _process(delta):
 	t += delta
 	if t > 1:
-		var b = $"../MineFactory/activebullets/MineBullet"
+		var b = $"../MineFactory/activebullets".get_child(0)
 		$"../MineFactory/activebullets".remove_child(b)
 		$"../MineFactory/pools/bullet".add_child(b)
 		queue_free()

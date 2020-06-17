@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://gamemodeshoot.gd" type="Script" id=3]
 [ext_resource path="res://Assets/sfx/beam.wav" type="AudioStream" id=4]
-[ext_resource path="res://floor.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scorekeeper.tscn" type="PackedScene" id=7]
 
 [sub_resource type="SpatialMaterial" id=1]
@@ -14,9 +13,6 @@ script = ExtResource( 3 )
 [node name="newlevel" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -11.0
-
-[node name="floor" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00640678, 0.0592887, -0.0110445 )
 
 [node name="scorekeeper" parent="." instance=ExtResource( 7 )]
 

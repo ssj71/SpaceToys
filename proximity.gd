@@ -8,6 +8,8 @@ const mag = .5 #magnetic strength
 const damp = 1 #velocity damping
 var exploded = false
 var life = 1
+var t = 0 #this is just to keep format consistent with other mines
+var period = 0 ##this is just to keep format consistent with other mines
 onready var pool = get_parent()
 
 
@@ -37,6 +39,9 @@ func process(delta):
 		life = 1
 		$CollisionShape.disabled = true
 		global_transform.origin = Vector3(0,-.25,0)
+		rotation = Vector3(0,0,0)
+		angular_velocity = Vector3(0,0,0)
+		linear_velocity = Vector3(0,0,0)
 		pool.add_child(self)
 
 func _on_ProximityMine_body_entered(body):

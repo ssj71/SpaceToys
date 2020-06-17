@@ -148,13 +148,6 @@ func bulletglow(delta):
 		bulletmaterial.emission_energy = v
 		gc = 0
 
-func place(mine, i=0):
-	var z = rng.randf_range(buffer,top-buffer)
-	var ang = rng.randf_range(0,2*PI)
-	var dist = rng.randf_range(0,rad-buffer)
-	mine.translation = Vector3(dist*cos(ang), z, dist*sin(ang))
-	#mine.translation = Vector3(0,1,.1*i)
-	
 func twist(mine):
 	var xr = rng.randi_range(-1,2)
 	var yr = rng.randi_range(-1,2)
@@ -162,60 +155,39 @@ func twist(mine):
 	mine.rotate_x(ninety*xr)
 	mine.rotate_y(ninety*yr)
 
-func produce(n):
+func addmines(preld, pool, n, twist = false):
 	var m
+	for i in range(n):
+		if pool.get_child_count():
+			m = pool.get_child(0)
+			pool.remove_child(m)
+		else:
+			m = preld.instance()
+		m.t = rng.randf_range(0,m.period)
+		if twist:
+			twist(m)
+		$"../gamemode".place(m)
+		m.get_node("CollisionShape").disabled = false
+		$activemines.add_child(m)
+		m.pool = pool
+
+func produce(n):
 	var nprox = rng.randi_range(1,n)
 	if n == nuklevel:
 		nprox = 0
 	#nprox = 0 #uncomment to disable proximity mines
-	var p = $pools/prox
-	for i in range(nprox):
-		if p.get_child_count():
-			m = p.get_child(0)
-			p.remove_child(m)
-		else:
-			m = prox.instance()
-		place(m,i)
-		m.get_node("CollisionShape").disabled = false
-		m.rotation = Vector3(0,0,0)
-		m.angular_velocity = Vector3(0,0,0)
-		m.linear_velocity = Vector3(0,0,0)
-		$activemines.add_child(m)
-		m.pool = p
-		
+	addmines(prox, $pools/prox, nprox)
+	
 	var nplas = rng.randi_range(1,n)
 	if n < 2 or n == nuklevel:
 		nplas = 0
 	#nplas = 0 #uncomment to disable plasma mines
-	p = $pools/plas
-	for i in range(nplas):
-		if p.get_child_count():
-			m = p.get_child(0)
-			p.remove_child(m)
-		else:
-			m = plas.instance()
-		m.t = rng.randf_range(0,m.period)
-		place(m,nprox + i)
-		m.get_node("CollisionShape").disabled = false
-		$activemines.add_child(m)
-		m.pool = p
-		
+	addmines(plas, $pools/plas, nplas)
+	
 	var nlasr = rng.randi_range(1,n)
 	if n < 4 or n == nuklevel:
 		nlasr = 0
-	p = $pools/lasr
-	for i in range(nlasr):
-		if p.get_child_count():
-			m = p.get_child(0)
-			p.remove_child(m)
-		else:
-			m = lasr.instance()
-		m.t = rng.randf_range(0,m.period)
-		twist(m)
-		place(m,nprox + nplas + i)
-		m.get_node("CollisionShape").disabled = false
-		$activemines.add_child(m)
-		m.pool = p
+	addmines(lasr, $pools/lasr, nlasr, true) #lasers get twisted
 	
 	var nnuk = rng.randi_range(0,3)
 	if n <= nuklevel:
@@ -223,28 +195,7 @@ func produce(n):
 		if n == nuklevel:
 			nnuk = 1
 			nprox = nuklevel #fake like the level is full
-	p = $pools/nuke
-	for i in range(nnuk):
-		if p.get_child_count():
-			m = p.get_child(0)
-			p.remove_child(m)
-		else:
-			m = nuke.instance()
-		place(m,nprox + nplas + nlasr + i)
-		m.get_node("CollisionShape").disabled = false
-		$activemines.add_child(m)
-		m.pool = p
+	addmines(nuke, $pools/nuke, nnuk)
 			
 	#fill the rest in with plasmamines if needed
-	p = $pools/plas
-	for i in range(n-nplas-nprox-nlasr):
-		if p.get_child_count():
-			m = p.get_child(0)
-			p.remove_child(m)
-		else:
-			m = plas.instance()
-		m.t = rng.randf_range(0,m.period)
-		place(m,nprox + i)
-		m.get_node("CollisionShape").disabled = false
-		$activemines.add_child(m)
-		m.pool = p
+	addmines(plas, $pools/plas, n-nplas-nprox-nlasr)

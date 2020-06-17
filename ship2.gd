@@ -37,7 +37,6 @@ func _on_OQ_LeftController_button_pressed(button):
 		$Crosshair.shoot()
 
 func _on_ship2_body_entered(body):
-	var p = body.get_parent()
 	var name = body.get_name()
 	if name == "walls":
 		if is_grabbed:
@@ -81,6 +80,7 @@ func kill():
 	collision_layer = 0x01
 	sleeping = true
 	visible = false
+	$Crosshair.streak = 0
 	global_transform.origin = Vector3(0,-.1,0)
 	
 

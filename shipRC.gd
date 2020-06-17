@@ -60,6 +60,7 @@ func boom():
 func kill():
 	visible = false
 	global_transform.origin = Vector3(0,-.1,0)
+	$Crosshair.streak = 0
 	
 func birth():
 	dead = false

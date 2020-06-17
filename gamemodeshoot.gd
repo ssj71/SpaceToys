@@ -19,22 +19,39 @@ func _ready():
 		add_child(s1)
 		add_child(s2)
 		s2.kill()
+		$"../InfoLabel".set_label_text("Grab the Ship!")
 	else:
 		s1 = load("res://shipRC.tscn").instance()
 		add_child(s1)
 		s2 = s1
+		$"../InfoLabel".set_label_text("Point Left controller and pull trigger to MOVE\nPoint Right controller and pull trigger to SHOOT")
 	reset()
-	pass # Replace with function body.
+
+var firsttime = true
+func _process(delta):
+	if firsttime:
+		$"..".fadein()
+		firsttime = false
 
 func reset():
 	s2.kill()
 	s1.birth()
-	$scorekeeper.reset()
 	$"../MineFactory".clearall()
 	$"../MineFactory".ship = s1
-	$"../reset_button".visible = false
-	
+	$scorekeeper.reset()
 
+const buffer = .1
+onready var top = $walls.height
+onready var rad = $walls.radius
+onready var rng = $"../MineFactory".rng
+var poffset = 0.0
+func place(item):
+	var z = rng.randf_range(buffer,top-buffer)
+	var ang = rng.randf_range(0,2*PI)
+	var dist = rng.randf_range(0,rad-buffer)
+	item.translation = Vector3(dist*cos(ang), z, dist*sin(ang))
+	#item.translation = Vector3(0,1,poffset) #this is for debugling
+	#poffset += .1
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -50,7 +67,7 @@ func ship_down():
 		s2.visible = false
 		$scorekeeper.show_scores()
 		$"../MineFactory".ship = null
-		$"../reset_button".visible = true
+		$"..".show_buttons()
 		if not once:
 			once = true
 			#reset()
