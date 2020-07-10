@@ -6,12 +6,14 @@ extends Spatial
 # var b = "text"
 var score = 0 
 var minescleared = 0
-const scorefile = "user://highscores"
+var scorefile = "user://highscores"
 const topkept = 15
 var scoredata
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if $"..".shiptype == "rc":
+		scorefile = "user://rchighscores"
 	hide_scores()
 
 func reset():
