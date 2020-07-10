@@ -17,7 +17,7 @@ var nuke = preload("res://nuclearmine.tscn")
 var bullet = preload("res://bullet.tscn")
 var bulletmaterial
 var dir = Vector3(0,0,0)
-const bspeed = .08
+const bspeed = .12
 #these must be set by the gamemode
 var ship = null
 
