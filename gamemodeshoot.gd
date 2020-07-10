@@ -45,11 +45,13 @@ onready var top = $walls.height
 onready var rad = $walls.radius
 onready var rng = $"../MineFactory".rng
 var poffset = 0.0
-func place(item):
-	var z = rng.randf_range(buffer,top-buffer)
-	var ang = rng.randf_range(0,2*PI)
-	var dist = rng.randf_range(0,rad-buffer)
-	item.translation = Vector3(dist*cos(ang), z, dist*sin(ang))
+func place(item, avoid):
+	item.translation = avoid
+	while (item.translation - avoid).length() < buffer:
+		var z = rng.randf_range(buffer,top-buffer)
+		var ang = rng.randf_range(0,2*PI)
+		var dist = rng.randf_range(0,rad-buffer)
+		item.translation = Vector3(dist*cos(ang), z, dist*sin(ang))
 	#item.translation = Vector3(0,1,poffset) #this is for debugling
 	#poffset += .1
 	
