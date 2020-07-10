@@ -8,7 +8,7 @@ var t = 0.0
 var cnt = 0
 var plas = preload("res://bullet.tscn")
 var exploded = false
-const startlife = 3
+const startlife = 11
 var life = startlife
 onready var pool = get_parent()
 

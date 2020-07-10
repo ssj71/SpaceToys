@@ -7,7 +7,8 @@ extends RigidBody
 const mag = .5 #magnetic strength
 const damp = 1 #velocity damping
 var exploded = false
-var life = 1
+const startlife = 4
+var life = startlife
 var t = 0 #this is just to keep format consistent with other mines
 var period = 0 ##this is just to keep format consistent with other mines
 onready var pool = get_parent()
@@ -36,7 +37,7 @@ func process(delta):
 	if exploded and not $Particles.emitting and not $boom.playing:
 		$"..".remove_child(self)
 		exploded = false
-		life = 1
+		life = startlife
 		$CollisionShape.disabled = true
 		global_transform.origin = Vector3(0,-.25,0)
 		rotation = Vector3(0,0,0)
@@ -59,6 +60,8 @@ func hit(damage):
 	if life <= 0:
 		ret = !exploded
 		boom()
+	else:
+		$hurt.play()
 	return ret
 		
 func boom():
