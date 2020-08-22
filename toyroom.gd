@@ -99,6 +99,10 @@ func _on_button1_button_pressed():
 		get_tree().reload_current_scene()
 
 func loadgame():
+	var b = $"MineFactory/activebullets".get_child(0)
+	if b != null:
+		$"MineFactory/activebullets".remove_child(b)
+		$"MineFactory/pools/bullet".add_child(b)
 	var mode = load("res://gamemodeshoot.tscn").instance()
 	mode.shiptype = shiptype
 	add_child(mode)

@@ -48,8 +48,9 @@ func _ready():
 	bulletmaterial = a.find_node("CSGSphere").material
 	#fire bullet to make it compile that material
 	$pools/bullet.remove_child(a)
-	#b.get_node("CollisionShape").disabled = false
-	#b.dir = (ship.global_transform.origin - from).normalized()
+	a.dir = Vector3(0,0,-.5)
+	a.global_transform.origin = Vector3(0,1.5,0)
+	a.get_node("CollisionShape").disabled = false
 	$activebullets.add_child(a)
 
 func _process(delta):
