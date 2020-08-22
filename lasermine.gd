@@ -59,13 +59,11 @@ func process(delta):
 
 func hit(damage):
 	life -= damage
-	var ret = false
 	if life <= 0:
-		ret = !exploded
 		boom()
 	else:
 		$hurt.play()
-	return ret
+	return !exploded
 
 func boom():
 	if not exploded:

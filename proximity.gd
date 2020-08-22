@@ -56,13 +56,11 @@ func _on_ProximityMine_body_entered(body):
 
 func hit(damage):
 	life -= damage
-	var ret = false
 	if life <= 0:
-		ret = !exploded
 		boom()
 	else:
 		$hurt.play()
-	return ret
+	return !exploded
 		
 func boom():
 	if not exploded:
