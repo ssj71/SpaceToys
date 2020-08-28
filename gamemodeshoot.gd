@@ -1,13 +1,10 @@
 extends Spatial
 
 const mode = "shoot"
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var s1
 var s2
 var shiptype = "rc" #"classic" #rc or classic
-
+var reserve
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,6 +16,7 @@ func _ready():
 		add_child(s1)
 		add_child(s2)
 		s2.kill()
+		reserve = s2
 		$"../InfoLabel".set_label_text("Grab the Ship!")
 	else:
 		s1 = load("res://shipRC.tscn").instance()
@@ -36,9 +34,11 @@ func _process(delta):
 func reset():
 	s2.kill()
 	s1.birth()
+	reserve = s2
 	$"../MineFactory".clearall()
 	$"../MineFactory".ship = s1
 	$scorekeeper.reset()
+	$PowerUp.hide()
 
 const buffer = .1
 onready var top = $walls.height
@@ -54,7 +54,22 @@ func place(item, avoid):
 		item.translation = Vector3(dist*cos(ang), z, dist*sin(ang))
 	#item.translation = Vector3(0,1,poffset) #this is for debugling
 	#poffset += .1
-	
+
+func newlevel(level):
+	$newlevel.play()
+	if level % 3 == 2:
+		var n = rng.randi_range(1,100)
+		if n <= 35:
+			$PowerUp.setPUtype("upgrade")
+			place($PowerUp,$"../MineFactory".ship.global_transform.origin)
+		elif n <= 45 and shiptype == "classic" and reserve != null:
+			reserve.birth()
+			place(reserve,$"../MineFactory".ship.global_transform.origin)
+			reserve = null
+		else:
+			$PowerUp.setPUtype("points")
+			place($PowerUp,$"../MineFactory".ship.global_transform.origin)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -62,9 +77,12 @@ var once = false
 func ship_down():
 	if s1.lenable or s1.renable:
 		$"../MineFactory".ship = s1
+		reserve = s2
 	elif s2.lenable or s2.renable:
 		$"../MineFactory".ship = s2
+		reserve = s1
 	else:
+		#game over bruh
 		s1.visible = false
 		s2.visible = false
 		$scorekeeper.show_scores()

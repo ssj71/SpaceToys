@@ -7,7 +7,7 @@ extends RigidBody
 const mag = .5 #magnetic strength
 const damp = 1 #velocity damping
 var exploded = false
-const startlife = 4
+const startlife = 550
 var life = startlife
 var t = 0 #this is just to keep format consistent with other mines
 var period = 0 ##this is just to keep format consistent with other mines

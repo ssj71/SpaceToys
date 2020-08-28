@@ -75,6 +75,7 @@ func _process(delta):
 	elif ship != null:
 		nextlevel()
 
+#this is no longer being used
 func preview():
 	#the first time a mine blows it takes a while to load the particles
 	#so we force an explosion on startup
@@ -126,7 +127,7 @@ func nextlevel():
 	level += 1
 	if(level == 2):
 		$"..".tut(3)
-	$"../gamemode/newlevel".play()
+	$"../gamemode".newlevel(level)
 	produce(level)
 
 func saw(x, mn, mx, period):

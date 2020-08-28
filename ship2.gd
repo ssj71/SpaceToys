@@ -41,11 +41,19 @@ func _on_ship2_body_entered(body):
 	if name == "walls":
 		if is_grabbed:
 			$"..".release()
-		self.linear_velocity = Vector3(0,0,0);
+		self.linear_velocity = Vector3(0,0,0)
 		self.angular_velocity = Vector3(0,0,0)
 	elif name.match("*ine*"):
 		boom()
 		body.hit_ship()
+	elif name.match("PowerUp"):
+		if body.type == "points":
+			room.bonus(5000,"Bonus! ")
+		elif body.type == "upgrade":
+			$Crosshair.power = int(1.155*$Crosshair.power)
+			room.show_prompt("Weapon Upgrade!",3)
+		$bonus.play()
+		body.hide()
 		
 var dead = false
 func boom():
@@ -67,10 +75,13 @@ func birth(place = Vector3(0,1,-.4)):
 	dead = false
 	global_transform.origin = place
 	rotation = Vector3(0,atan2(-place[0],-place[2]),0)
+	linear_velocity = Vector3(0,0,0)
+	angular_velocity = Vector3(0,0,0)
 	visible = true
 	$fighterjet2.visible = true
 	lenable = false
 	renable = false
+	$Crosshair.power = 500
 	
 func kill():
 	if is_grabbed:

@@ -10,7 +10,7 @@ const alph = 0
 const autoshot = false #for debugging only
 var timer = 0 
 var streak = 0
-var power = 3
+var power = 500
 
 
 # Called when the node enters the scene tree for the first time.
