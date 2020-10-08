@@ -48,6 +48,14 @@ func _on_ship2_body_entered(body):
 	elif name.match("*ine*"):
 		boom()
 		body.hit_ship()
+	elif name.match("PowerUp"):
+		if body.type == "points":
+			room.bonus(5000,"Bonus! ")
+		elif body.type == "upgrade":
+			$Crosshair.power = int(1.155*$Crosshair.power)
+			room.show_prompt("Weapon Upgrade!",3)
+		$bonus.play()
+		body.hide()
 		
 var dead = false
 func boom():
