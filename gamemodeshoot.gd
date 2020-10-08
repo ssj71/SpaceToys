@@ -15,6 +15,9 @@ func _ready():
 		s2.set_name("ship1")
 		add_child(s1)
 		add_child(s2)
+		var las = s2.get_node("Crosshair/laser")
+		var mat = las.material.duplicate()
+		las.set_material(mat)
 		s2.kill()
 		reserve = s2
 		$"../InfoLabel".set_label_text("Grab the Ship!")
