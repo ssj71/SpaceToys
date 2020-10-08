@@ -5,6 +5,9 @@ extends StaticBody
 # var a = 2
 # var b = "text"
 var type = "points"
+var t = 0.0
+const warn = 25
+const dissappear = 30
 
 
 # Called when the node enters the scene tree for the first time.
@@ -23,7 +26,17 @@ func setPUtype(_type):
 	elif type == "upgrade":
 		$Sphere_003.mesh.surface_get_material(0).set_shader_param("glow_color",Vector3(0,1,0))
 	$CollisionShape.disabled = false
+	t = 0.0
+	$Sphere_003.visible = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	t+=delta
+	if int(t) == dissappear:
+		hide()
+	elif t > warn:
+		#blink
+		if int(3*t)%2:
+			$Sphere_003.visible = false
+		else:
+			$Sphere_003.visible = true

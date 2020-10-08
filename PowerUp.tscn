@@ -4,7 +4,7 @@
 [ext_resource path="res://PowerUp.gd" type="Script" id=2]
 
 [sub_resource type="SphereShape" id=1]
-radius = 0.03
+radius = 0.04
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 1 )
@@ -36,6 +36,6 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="Sphere_003" type="MeshInstance" parent="."]
-transform = Transform( 0.03, 0, 0, 0, 0.03, 0, 0, 0, 0.03, 0, 0, 0 )
+transform = Transform( 0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0 )
 mesh = SubResource( 3 )
 material/0 = null
