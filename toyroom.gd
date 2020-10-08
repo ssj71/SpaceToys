@@ -62,7 +62,7 @@ func _process(delta):
 			$InfoLabel.visible = false
 	t += delta
 	if t> 2 && firsttime:
-		#_on_button0_button_pressed()
+		#_on_button0_button_pressed() #uncomment to autopick classic
 		firsttime = false
 	if fade != 0.0:
 		fadeval += fade

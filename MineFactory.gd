@@ -61,7 +61,6 @@ func _process(delta):
 		if c:
 			var name = c.collider.get_name()
 			if name == "walls":
-				#TODO: will this mess with the loop?
 				$activebullets.remove_child(b)
 				b.get_node("CollisionShape").disabled = true
 				b.global_transform.origin = Vector3(0,-.25,0)

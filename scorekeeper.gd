@@ -9,6 +9,7 @@ var minescleared = 0
 var scorefile = "user://highscores"
 const topkept = 15
 var scoredata
+var killname = "ace"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,7 +32,6 @@ func mine_cleared():
 func show_scores():
 	scoredata = load_file_data(scorefile)
 	if scoredata:
-		$"../..".show_prompt(str(scoredata),10)
 		if len(scoredata) < topkept or scoredata[-1][1] < score:
 			newhigh()
 	else:
@@ -45,9 +45,9 @@ func show_scores():
 	print_scores()
 	
 func newhigh():
+	$OQ_UI2DKeyboard.set_prompt(killname)
 	$OQ_UI2DKeyboard.visible = true
 	$"../../OQ_ARVROrigin/OQ_RightController/Feature_UIRayCast".visible = true
-	$OQ_UI2DKeyboard.set_prompt("ace")
 	$"../..".show_prompt("Enter name for new high score!",10)
 
 func hide_scores():
@@ -71,10 +71,11 @@ func print_scores():
 	$hiextra.set_label_text(xtr)
 	
 func _on_OQ_UI2DKeyboard_text_input_enter(text):
+	killname = text
 	$OQ_UI2DKeyboard.visible = false
 	$"../../InfoLabel".visible = false
 	$"../../OQ_ARVROrigin/OQ_RightController/Feature_UIRayCast".visible = false
-	var data = [text,score,$"../../MineFactory".level,minescleared]
+	var data = [killname,score,$"../../MineFactory".level,minescleared]
 	var inserted = false
 	for i in range(len(scoredata)):
 		if scoredata[i][1] < score:
