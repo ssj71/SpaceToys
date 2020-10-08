@@ -30,8 +30,8 @@ func _ready():
 	#vr.switch_scene("res://demo_scenes/PhysicsScene.tscn"); return;
 
 	# Always advertise Godot a bit in the beggining
-	if (vr.inVR): vr.switch_scene("res://demo_scenes/GodotSplash.tscn", 0.0, 0.0);
-	vr.switch_scene(room_list[current_room], 1.0, 1.0);#was 5.0
+	if (vr.inVR): vr.switch_scene("res://GodotSplash.tscn", 0.0, 0.0);
+	vr.switch_scene(room_list[current_room], 1.0, 1.5);#was 5.0
 
 	vr.log_info("  Tracking space is: %d" % vr.get_tracking_space());
 	vr.log_info(str("  get_boundary_oriented_bounding_box is: ", vr.get_boundary_oriented_bounding_box()));
