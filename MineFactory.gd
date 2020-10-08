@@ -49,7 +49,7 @@ func _ready():
 	#fire bullet to make it compile that material
 	$pools/bullet.remove_child(a)
 	a.dir = Vector3(0,0,-.5)
-	a.global_transform.origin = Vector3(0,1.5,0)
+	a.global_transform.origin = Vector3(0,1.5,.5)
 	a.get_node("CollisionShape").disabled = false
 	$activebullets.add_child(a)
 
