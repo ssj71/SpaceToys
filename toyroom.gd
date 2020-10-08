@@ -22,7 +22,10 @@ func tut(step):
 	if(step > tutstep):
 		tutstep = step
 		if tutstep == 1:
-			$InfoLabel.set_label_text("Pull the Trigger to Shoot!")
+			if shiptype == "classic":
+				$InfoLabel.set_label_text("Pull the Trigger to Shoot!")
+			else:
+				$InfoLabel.set_label_text("Point Right controller and pull trigger to SHOOT!")
 			$title.visible = false
 		elif tutstep == 2:
 			$InfoLabel.set_label_text("Shoot the Mines!")

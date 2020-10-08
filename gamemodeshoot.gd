@@ -25,7 +25,7 @@ func _ready():
 		s1 = load("res://shipRC.tscn").instance()
 		add_child(s1)
 		s2 = s1
-		$"../InfoLabel".set_label_text("Point Left controller and pull trigger to MOVE\nPoint Right controller and pull trigger to SHOOT")
+		$"../InfoLabel".set_label_text("Point Left controller and pull trigger to MOVE")
 	reset()
 
 var firsttime = true

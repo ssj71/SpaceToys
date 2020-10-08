@@ -23,6 +23,7 @@ func _process(delta):
 	var a = vr.get_controller_axis(vr.AXIS.LEFT_INDEX_TRIGGER)
 	if a or not first:
 		a = 1.0+a #axis is E[-1,1]
+		room.tut(1)
 		first = false
 	var u = Vector3(0,0,-a)
 	var m = lctl.global_transform.basis.xform(u)
@@ -36,7 +37,7 @@ func _process(delta):
 
 	
 func buttonpress(button):
-	if button == 15 and not dead:
+	if button == 15 and not dead and not first:
 		$Crosshair.shoot()
 
 func _on_ship2_body_entered(body):
