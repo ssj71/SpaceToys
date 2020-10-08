@@ -28,7 +28,6 @@ func shoot():
 	var miss = true
 	var hit = 0
 	for body in b:
-		#$"../../../InfoLabel".set_label_text("boom")
 		#TODO: only hit the closest mine
 		if body.get_name().match("*ine*"):
 			if body.get_parent().get_name() == "activemines":
@@ -64,6 +63,3 @@ func _process(delta):
 		if timer <= 70:
 			timer += 1
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

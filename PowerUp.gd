@@ -14,7 +14,7 @@ func _ready():
 func hide():
 	$CollisionShape.disabled = true
 	global_transform.origin = Vector3(0,-.2,0)
-	
+
 
 func setPUtype(_type):
 	type = _type
