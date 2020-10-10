@@ -167,6 +167,7 @@ func addmines(preld, pool, n, twist = false):
 		m.t = rng.randf_range(0,m.period)
 		if twist:
 			twist(m)
+		m.reset()
 		$"../gamemode".place(m, ship.global_transform.origin)
 		m.get_node("CollisionShape").disabled = false
 		$activemines.add_child(m)

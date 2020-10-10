@@ -56,3 +56,6 @@ func annihilate():
 
 func hit_ship():
 	pass
+	
+func reset():
+	pass

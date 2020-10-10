@@ -76,3 +76,6 @@ func annihilate():
 	
 func hit_ship():
 	exploded = true
+	
+func reset():
+	pass

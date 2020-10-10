@@ -12,6 +12,7 @@ onready var pool = get_parent()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	reset()
 	pass # Replace with function body.
 
 
@@ -28,8 +29,8 @@ func process(delta):
 			scan_for_ship()
 		elif not $boooom.playing:
 			scan_for_ship()
-			$"..".remove_child(self)
 			reset()
+			$"..".remove_child(self)
 			pool.add_child(self)
 
 func scan_for_ship():
@@ -43,7 +44,7 @@ func scan_for_ship():
 
 func reset():
 	blowing = false
-	t = 0
+	t = 0.0
 	$mine2.visible = true
 	$explosion.visible = false
 	$explosion/CSGSphere.radius = .1
