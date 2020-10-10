@@ -78,32 +78,56 @@ visible = false
 [node name="InfoLabel" parent="." instance=ExtResource( 2 )]
 transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 0, 2, -1.99021 )
 text = "Choose a Toy Ship:"
+margin = 16
+billboard = false
+depth_test = true
+resize_mode = 0
+font_size_multiplier = 1.0
+font_color = Color( 1, 1, 1, 1 )
 background_color = Color( 0.00392157, 0, 0.392157, 1 )
+transparent = false
 
 [node name="button0" parent="." instance=ExtResource( 14 )]
-transform = Transform( 1, 1.49012e-08, 0, 0, 1, -5.96046e-08, 0, 0, 1, 0, 1.25, -1 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1.25, -1 )
 off_material = SubResource( 1 )
 on_material = SubResource( 2 )
 
 [node name="label" parent="button0" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
+transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, 0.05, 0 )
 text = "classic"
+margin = 16
+billboard = false
+depth_test = true
+resize_mode = 0
+font_size_multiplier = 1.0
+font_color = Color( 1, 1, 1, 1 )
 background_color = Color( 0.00392157, 0, 0.392157, 1 )
+transparent = false
 
 [node name="button1" parent="." instance=ExtResource( 14 )]
-transform = Transform( 1, 1.49012e-08, 0, 0, 1, -5.96046e-08, 0, 0, 1, 0, 1, -1 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 1, -1 )
 off_material = SubResource( 3 )
 on_material = SubResource( 4 )
 
 [node name="label" parent="button1" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
+transform = Transform( -1, 0, 3.25841e-07, 0, 1, 0, -3.25841e-07, 0, -1, 0, 0.05, 0 )
 text = "rc (hard)"
+margin = 16
+billboard = false
+depth_test = true
+resize_mode = 0
+font_size_multiplier = 1.0
+font_color = Color( 1, 1, 1, 1 )
 background_color = Color( 0.00392157, 0, 0.392157, 1 )
+transparent = false
 
 [node name="title" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -18 )
 text = "Space Toys"
 margin = 6
+billboard = false
+depth_test = true
+resize_mode = 0
 font_size_multiplier = 200.0
 font_color = Color( 0.960784, 0.137255, 0.00392157, 1 )
 background_color = Color( 0, 0, 0, 0 )
@@ -174,6 +198,10 @@ stream = ExtResource( 30 )
 [node name="trackinfo" parent="soundtrack" instance=ExtResource( 2 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -2, 0, 0 )
 text = "Best Track Ever"
+margin = 16
+billboard = false
+depth_test = true
+resize_mode = 0
 font_size_multiplier = 2.0
 font_color = Color( 0.00392157, 0, 0.392157, 1 )
 background_color = Color( 0, 0, 0, 0 )
