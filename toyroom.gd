@@ -67,7 +67,6 @@ func _process(delta):
 	if fade != 0.0:
 		fadeval += fade
 		var c = max(0.0,min(1.0, fadeval));
-		print(c)
 		vr.set_default_layer_color_scale(Color(c, c, c, c));
 		if fadeval >= 1.0 or fadeval <= 0.0:
 			fade = 0.0
