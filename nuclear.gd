@@ -9,7 +9,7 @@ const tex = .25 #expand
 const tdis = 2 #disperse
 const exspeed = .7/tex
 onready var pool = get_parent()
-const period = 0.01 #just for compatability
+const period = 0.001 #just for compatability
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
