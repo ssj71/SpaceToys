@@ -98,6 +98,7 @@ func _on_button1_button_pressed():
 		firstchoice = false
 		loadprep()
 	else:
+		tutstep = 0
 		get_tree().reload_current_scene()
 
 func loadgame():
