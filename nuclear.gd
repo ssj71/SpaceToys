@@ -13,7 +13,6 @@ const period = 0.01 #just for compatability
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	reset()
 	pass # Replace with function body.
 
 
@@ -30,8 +29,8 @@ func process(delta):
 			scan_for_ship()
 		elif not $boooom.playing:
 			scan_for_ship()
-			reset()
 			$"..".remove_child(self)
+			reset()
 			pool.add_child(self)
 
 func scan_for_ship():
