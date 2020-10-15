@@ -50,7 +50,7 @@ onready var rng = $"../MineFactory".rng
 var poffset = 0.0
 func place(item, avoid):
 	var pos = avoid
-	while (pos - avoid).length() < buffer:
+	while (pos - avoid).length() < 2*buffer:
 		var z = rng.randf_range(buffer,top-buffer)
 		var ang = rng.randf_range(0,2*PI)
 		var dist = rng.randf_range(0,rad-buffer)
