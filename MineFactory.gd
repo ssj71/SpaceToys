@@ -165,13 +165,13 @@ func addmines(preld, pool, n, twist = false):
 		else:
 			m = preld.instance()
 		m.t = rng.randf_range(0,m.period)
-		if twist:
-			twist(m)
 		m.reset()
 		$"../gamemode".place(m, ship.global_transform.origin)
 		m.get_node("CollisionShape").disabled = false
 		$activemines.add_child(m)
 		m.pool = pool
+		if twist:
+			twist(m)
 
 func produce(n):
 	var nprox = rng.randi_range(1,n)
@@ -185,7 +185,7 @@ func produce(n):
 		nplas = 0
 	#nplas = 0 #uncomment to disable plasma mines
 	addmines(plas, $pools/plas, nplas)
-	
+
 	var nlasr = rng.randi_range(1,n)
 	if n < 4 or n == nuklevel:
 		nlasr = 0
@@ -198,6 +198,6 @@ func produce(n):
 			nnuk = 1
 			nprox = nuklevel #fake like the level is full
 	addmines(nuke, $pools/nuke, nnuk)
-			
+
 	#fill the rest in with plasmamines if needed
 	addmines(plas, $pools/plas, n-nplas-nprox-nlasr)
