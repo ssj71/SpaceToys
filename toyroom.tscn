@@ -77,7 +77,7 @@ visible = false
 
 [node name="InfoLabel" parent="." instance=ExtResource( 2 )]
 transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 0, 2, -1.99021 )
-text = "Choose a Toy Ship:"
+text = "Touch a Button to Choose a Toy Ship:"
 margin = 16
 billboard = false
 depth_test = true
