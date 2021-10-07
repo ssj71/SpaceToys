@@ -41,14 +41,14 @@ func reset():
 	$scorekeeper.reset()
 	$PowerUp.hide()
 
-const buffer = .1
+const buffer = .3
 onready var top = $walls.height
 onready var rad = $walls.radius
 onready var rng = $"../MineFactory".rng
 var poffset = 0.0
 func place(item, avoid):
 	var pos = avoid
-	while (pos - avoid).length() < 2*buffer:
+	while (pos - avoid).length() < buffer:
 		var z = rng.randf_range(buffer,top-buffer)
 		var ang = rng.randf_range(0,2*PI)
 		var dist = rng.randf_range(0,rad-buffer)
