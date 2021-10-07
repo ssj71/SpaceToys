@@ -20,12 +20,10 @@ func _ready():
 		las.set_material(mat)
 		s2.kill()
 		reserve = s2
-		$"../InfoLabel".set_label_text("Grab the Ship!")
 	else:
 		s1 = load("res://shipRC.tscn").instance()
 		add_child(s1)
 		s2 = s1
-		$"../InfoLabel".set_label_text("Point Left controller and pull trigger to MOVE")
 	reset()
 
 var firsttime = true

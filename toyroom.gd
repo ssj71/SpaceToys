@@ -21,7 +21,12 @@ func _ready():
 func tut(step):
 	if(step > tutstep):
 		tutstep = step
-		if tutstep == 1:
+		if tutstep == 0:
+			if shiptype == "classic":
+				$InfoLabel.set_label_text("Grab the Ship!")
+			else:
+				$InfoLabel.set_label_text("Point Left controller and pull trigger to MOVE!")
+		elif tutstep == 1:
 			if shiptype == "classic":
 				$InfoLabel.set_label_text("Pull the Trigger to Shoot!")
 			else:
@@ -98,7 +103,6 @@ func _on_button1_button_pressed():
 		firstchoice = false
 		loadprep()
 	else:
-		tutstep = 0
 		get_tree().reload_current_scene()
 
 func loadgame():
@@ -109,6 +113,8 @@ func loadgame():
 	var mode = load("res://gamemodeshoot.tscn").instance()
 	mode.shiptype = shiptype
 	add_child(mode)
+	tutstep = -1
+	tut(0)
 	
 func loadprep():
 	loading = true
